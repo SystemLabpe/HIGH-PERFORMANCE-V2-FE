@@ -1,4 +1,4 @@
-define(['bootstrap','bootstrapUI','flatUI',
+define(['bootstrap','bootstrapUI',
   'shared/shared','shared/directives/navbar','shared/controllers/userSettingsController',
   'auth/auth','auth/factories/authFactory','auth/controllers/roleController',
   'auth/controllers/loginController','auth/controllers/logoutController',

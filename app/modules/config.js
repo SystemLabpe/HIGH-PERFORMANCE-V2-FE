@@ -15,43 +15,8 @@ define([],function(){
 
   config.constant(
     'ROLE', {
-      SUPERADMIN: {
-        ID:1,
-        NAME:'Super Administrador',
-        PATH:'/admin',
-        ROUTES: [
-          {
-            NAME : 'Mantenimiento',
-            PATH : '/admin/mantenimiento'
-          },
-          {
-            NAME : 'Reportes',
-            PATH : '/admin/reportes'
-          }
-        ]
-      },
-      DOCTOR: {
-        ID:2,
-        NAME:'Doctor',
-        PATH:'/doctor',
-         ROUTES: [
-          {
-            NAME : 'Citas',
-            PATH : '/'
-          },
-          {
-            NAME : 'Horarios',
-            PATH : '/'
-          }
-        ]
-      },
-      RECEPTIONIST: {
-        ID:3,
-        NAME:'Recepcionista',
-        PATH:'/secretary'
-      },
       ADMIN: {
-        ID:4,
+        ID:1,
         NAME:'Administrador',
         PATH:'/admin',
         ROUTES: [
@@ -62,6 +27,21 @@ define([],function(){
           {
             NAME : 'Reportes',
             PATH : '/admin/reportes'
+          }
+        ]
+      },
+      CLIENT: {
+        ID: 2,
+        NAME: "Club",
+        PATH: "/club",
+        ROUTES: [
+          {
+            NAME : 'JUGADORES',
+            PATH : '/club/jugadores'
+          },
+          {
+            NAME : 'RIVALES',
+            PATH : '/club/rivales'
           }
         ]
       }

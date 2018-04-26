@@ -6,7 +6,6 @@ require.config({
     satellizer      : '../lib/satellizer/satellizer',
     bootstrap       : '../lib/bootstrap/dist/js/bootstrap',
     bootstrapUI     : '../lib/angular-bootstrap/ui-bootstrap-tpls',
-    flatUI          : '../lib/flat-ui/dist/js/flat-ui',
     jquery          : '../lib/jquery/dist/jquery'
   },
   shim:  {
@@ -30,9 +29,6 @@ require.config({
     },
     bootstrapUI: {
       deps  : ['angular']
-    },
-    flatUI: {
-      deps  : [ 'jquery']
     },
     app:  {
       deps  : ['angular']
