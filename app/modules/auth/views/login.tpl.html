@@ -1,0 +1,23 @@
+<section id="login">
+  <div class="container">
+    <di class="col-md-4 col-md-offset-4">
+      <form class="login-form" ng-submit="login()" autocomplete="off">
+        <div class="form-group">
+          <input id="account" type="text" class="form-control"
+            placeholder="Usuario" ng-model="user.account" required>
+          <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+        <div class="form-group">
+          <input id="password" type="password" class="form-control"
+            placeholder="Contraseña" ng-model="user.password" required>
+          <label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+        <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="loading"></ng-include>
+        <uib-alert type="{{alert.TYPE}}" close="cleanAlert()" ng-show="alert">{{alert.TEXT}}</uib-alert>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="loading">
+          Ingresar
+        </button>
+      </form>
+    </di>
+  </div>
+</section>

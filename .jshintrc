@@ -1,0 +1,21 @@
+{
+  "node": true,
+  "browser": true,
+  "esnext": true,
+  "bitwise": true,
+  "eqeqeq": true,
+  "latedef": true,
+  "noarg": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "jquery": true,
+  "elision":false,
+  "sub":true,
+  "predef": [
+    "requirejs",
+    "require",
+    "define",
+    "angular"
+  ]
+}

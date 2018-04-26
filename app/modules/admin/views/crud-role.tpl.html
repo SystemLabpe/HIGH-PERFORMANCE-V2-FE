@@ -1,0 +1,59 @@
+<section id="crud-doctor" class="crud">
+  <div class="container">
+    <h2>CRUD ROLES</h2>
+    <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="loading"></ng-include>
+    <div class="col-md-6 col-md-offset-3">
+      <uib-alert type="{{alert.TYPE}}" close="cleanAlert()" ng-show="alert">{{alert.TEXT}}</uib-alert>
+    </div>
+    <div class="row" ng-show="step==1">
+      <div class="col-md-6 col-md-offset-3">
+        <table class="table crud-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Rol</th>
+              <th class="crud-option-add">
+                <button type="button" class="btn btn-info btn-add" ng-click="goAdd()">
+                  <span class="fui-plus"></span>
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="role in roleList">
+              <td>{{role.id}}</td>
+              <td>{{role.name}}</td>
+              <td class="crud-options">
+                <button type="button" class="btn btn-warning" ng-click="goEdit(role)">
+                  <span class="fui-new"></span>
+                </button>
+                <button type="button" class="btn btn-danger" ng-click="goDelete(role)">
+                  <span class="fui-trash"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-show="step==2">
+      <div class="col-md-6 col-md-offset-3">
+        <form role="form" ng-submit="submitForm()">
+          <legend class="text-center">
+            <button type="button" class="btn btn-default btn-sm btn-back pull-left" ng-click="goBack()">← Atrás</button>
+            <span class="crud-title">Agregar Rol</span>
+          </legend>
+          <div class="form-group">
+            <label for="role">Rol</label>
+            <input type="text" class="form-control" id="role" placeholder="Ingreso Rol" ng-model="role.name" required>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-success" ng-click="addRole()">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

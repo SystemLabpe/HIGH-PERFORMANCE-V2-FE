@@ -1,0 +1,22 @@
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+    <a class="navbar-brand" href="/">SystemLab</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse-01" ng-if="isAuthenticated">
+    <ul class="nav navbar-nav">
+      <li ng-repeat="route in routes" ng-class="{active:isActive(route.PATH)}"><a ng-href="{{route.PATH}}" ng-click="collapse()">{{route.NAME}}</a></li>
+    </ul>
+    <div class="navbar-right navbar-user-settings">
+      <p class="navbar-text">{{navRole}} {{navUsername}}</p>
+      <a href="/configuracion" class="btn btn-default navbar-btn btn-sm settings" ng-click="collapse()">
+        <span class="fui-gear"></span>
+      </a>
+      <a href="/logout" class="btn btn-default navbar-btn btn-sm logout" ng-click="collapse()">
+        <span class="fui-exit"></span>
+      </a>
+    </div>
+  </div>
+</nav>
