@@ -9,20 +9,23 @@
 }
 
 html, body{
-  font-family: sans-serif;
   height: 100%;
 }
 
-body {
+/*body {
   padding-top: 20px;
-}
+}*/
 
-.app-container {
+/*.app-container {
   min-height: 100%;
-}
+}*/
 
-section {
+/*section {
   padding: 20px 0;
+}*/
+
+.full-height {
+  height: 100%;
 }
 
 ul {
@@ -31,6 +34,15 @@ ul {
 
 h2 {
   margin-top: 0 !important;
+  text-align: center;
+}
+
+.btn-hp {
+  background: #fec821;
+  color: #24252f;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px;
   text-align: center;
 }
 
@@ -164,4 +176,30 @@ h2 {
 
 .crud-table .crud-option-add button {
   padding: 6px 16px;
+}
+
+/* ==================================================
+   Login
+================================================== */
+.page-area-section-error {
+  background: url(../img/bg-1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.error-404 {
+  margin: 160px 0 100px;
+  padding: 20px 60px 60px;
+}
+
+.login-container {
+  background-color: #FFFFFF;
+}
+
+.login-container img {
+  max-width: 300px;
+}
+
+.login-container .login-form {
+  margin-top: 40px;
 }

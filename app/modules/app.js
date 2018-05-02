@@ -15,10 +15,17 @@ define(['bootstrap','bootstrapUI',
 
       $routeProvider
       .when('/', {
-        templateUrl : 'modules/home.html'
+        // templateUrl : 'modules/home.html'
+        templateUrl : 'modules/auth/views/login_2.tpl.html',
+        controller  : 'auth.loginController',
+        resolve     : {
+          skipIfLoggedIn: ['auth.authFactory',function (authFactory) {
+            return authFactory.skipIfLoggedIn();
+          }]
+        }
       })
       .when('/login', {
-        templateUrl : 'modules/auth/views/login.tpl.html',
+        templateUrl : 'modules/auth/views/login_2.tpl.html',
         controller  : 'auth.loginController',
         resolve     : {
           skipIfLoggedIn: ['auth.authFactory',function (authFactory) {

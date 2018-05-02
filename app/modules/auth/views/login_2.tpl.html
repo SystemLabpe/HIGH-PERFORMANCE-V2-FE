@@ -1,0 +1,31 @@
+<section id="login" class="full-height">
+  <div class="page-area-section-error full-height">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="login-container">
+            <div class="error-404">
+              <img src="img/logo.png" class="img-responsive" width="355" height="350" style="border: 0" alt="">
+              <form class="login-form" ng-submit="login()" autocomplete="off">
+                <div class="form-group">
+                  <input id="account" type="text" class="form-control"
+                    placeholder="Usuario" ng-model="user.account" required>
+                  <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <div class="form-group">
+                  <input id="password" type="password" class="form-control"
+                    placeholder="Contraseña" ng-model="user.password" required>
+                  <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+                <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="loading"></ng-include>
+                <uib-alert type="{{alert.TYPE}}" close="cleanAlert()" ng-show="alert">{{alert.TEXT}}</uib-alert>
+                <button type="submit" class="btn btn-hp" ng-disabled="loading">
+                  Ingresar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

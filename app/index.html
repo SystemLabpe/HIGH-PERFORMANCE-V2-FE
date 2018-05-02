@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>High Performance</title>
-  <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+  <!-- <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"> -->
   <link rel="stylesheet" href="/lib/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="/css/owl.carousel.css">
+  <link rel="stylesheet" href="/css/bootsnav.css">
+  <link rel="stylesheet" href="fonts/montserrat-ultralight-webfont.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/main.css">
   <base href="/">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
@@ -13,7 +17,7 @@
   <div class="container">
     <navbar></navbar>
   </div>
-  <div ng-view ng-style="container" class="app-container"></div>
+  <div ng-view ng-style="container" class="app-container wrapper"></div>
   <script type="text/javascript" src="../lib/requirejs/require.js" data-main="modules/main"></script>
 </body>
 </html>
