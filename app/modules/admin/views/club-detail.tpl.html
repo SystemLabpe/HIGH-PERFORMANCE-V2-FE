@@ -35,7 +35,7 @@
               <input type="text" class="form-control" id="club-name" placeholder="Nombre de Club" ng-model="club.full_name" required>
             </div>
             <div class="col-md-2">
-              <button class="btn" type="submit"> {{clubSubmitButton}}</button>
+              <button class="btn btn-yellow btn-club-submit" type="submit"> {{clubSubmitButton}}</button>
             </div>
           </div>
         </form>
@@ -99,7 +99,7 @@
             <div class="form-group">
               <div class="col-md-12 text-center">
                 <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="clubAdminLoading"></ng-include>
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-yellow">Guardar</button>
               </div>
             </div>
           </form>

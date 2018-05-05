@@ -47,18 +47,70 @@ h2 {
 }
 
 .btn-back {
-  color: #34495e;
-  background-color: #ffffff;
-  border: 1px solid #34495e;
-  border-radius: 15px;
+  color: #ffffff;
+  background-color: #24252f;
+  border: 1px solid #24252f;
+  border-radius: 3px;
   padding: 5px 14px;
   cursor: pointer;
 }
 
 .btn-back:hover {
   color: #ffffff;
-  background-color: #34495e;
-  border-color: #2c3e50;
+  background-color: #24252f;
+  border-color: #24252f;
+}
+
+.btn-yellow {
+  width: 100%;
+  padding: 15px;
+  background-color: #fec722;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: none;
+  line-height: 1;
+  outline: none;
+  border-radius: 3px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.modal-content .btn-success {
+  padding: 15px;
+  background-color: #fec722;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: none;
+  line-height: 1;
+  outline: none;
+  border-radius: 3px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.modal-content .btn-danger {
+  padding: 15px;
+  background-color: #24252f;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: none;
+  line-height: 1;
+  outline: none;
+  border-radius: 3px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 /* ==================================================
@@ -208,6 +260,21 @@ h2 {
   padding: 6px 16px;
 }
 
+.crud-table .btn-danger {
+  background-color: #6f6f6f;
+  border-color: #6f6f6f;
+}
+
+.crud-table .btn-warning {
+  background-color: #24252f;
+  border-color: #24252f;
+}
+
+.crud-table .btn-info {
+  background-color: #fec722;
+  border-color: #24252f;
+}
+
 .crud-header {
   position: relative;
 }
@@ -220,6 +287,10 @@ h2 {
 
 .crud-header h2 {
   position: initial !important;
+}
+
+form button.btn-yellow {
+  max-width: 300px;
 }
 
 /* ==================================================
@@ -294,6 +365,10 @@ h2 {
   font-weight: 700;
 }
 
+#admin-home .club-list {
+  margin-top: 20px;
+}
+
 #admin-home .club-list .club-items {
   background-color: transparent;
   border: 1px solid #c4c4c4;
@@ -350,6 +425,10 @@ h2 {
   font-weight: 700;
   margin: 0;
   padding: 0;
+}
+
+#admin-club-detail .btn-club-submit {
+  padding: 13px;
 }
 
 #admin-club-detail h2 {
