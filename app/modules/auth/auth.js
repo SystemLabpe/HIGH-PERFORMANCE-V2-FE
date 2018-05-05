@@ -8,6 +8,7 @@ define(['angular','angularResource','satellizer'],function(angular){
       $authProvider.loginUrl = AUTH.LOGIN_URL;
       $authProvider.authHeader = AUTH.AUTH_HEADER;
       $authProvider.authToken = AUTH.AUTH_TOKEN;
+      $authProvider.tokenName = AUTH.AUTH_TOKEN_NAME;
     }
   ]);
 

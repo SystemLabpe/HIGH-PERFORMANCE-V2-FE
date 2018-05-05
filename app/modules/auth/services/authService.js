@@ -9,7 +9,7 @@ define(['auth/auth'],function(auth){
             method:'GET' ,params: {entity : '@entity', method:'@method'},
             transformResponse: function(data,headers,status) {
               var response = {};
-              response.data = data;
+              response.data = JSON.parse(data);
               response.status = status;
               return response;
             }
@@ -27,7 +27,7 @@ define(['auth/auth'],function(auth){
             method:'POST' ,params: {entity : '@entity', method:'@method'},
             transformResponse: function(data,headers,status) {
               var response = {};
-              response.data = data;
+              response.data = JSON.parse(data);
               response.status = status;
               return response;
             }
@@ -36,7 +36,11 @@ define(['auth/auth'],function(auth){
             method:'PUT' ,params: {entity : '@entity', method:'@method'},
             transformResponse: function(data,headers,status) {
               var response = {};
-              response.data = data;
+              if (data) {
+                response.data = JSON.parse(data);
+              } else {
+                response.data = {};
+              }
               response.status = status;
               return response;
             }
@@ -45,7 +49,11 @@ define(['auth/auth'],function(auth){
             method:'DELETE' ,params: {entity : '@entity', method:'@method'},
             transformResponse: function(data,headers,status) {
               var response = {};
-              response.data = data;
+              if (data) {
+                response.data = JSON.parse(data);
+              } else {
+                response.data = {};
+              }
               response.status = status;
               return response;
             }

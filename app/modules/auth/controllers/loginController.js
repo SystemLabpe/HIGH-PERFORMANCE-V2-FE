@@ -1,8 +1,8 @@
-define(['auth/auth','auth/filters/roleFilter'], function(auth){
+define(['auth/auth', 'auth/factories/authFactory','auth/filters/roleFilter','shared/filters/errorFilter'], function(auth){
   'use strict';
 
-  auth.controller('auth.loginController',['$scope','$auth','$filter','$location','ROLE','MESSAGE',
-    function ($scope,$auth,$filter,$location,ROLE,MESSAGE){
+  auth.controller('auth.loginController',['$scope','$auth','$filter','$location', 'auth.authFactory','ROLE','MESSAGE',
+    function ($scope,$auth,$filter,$location,authFactory,ROLE,MESSAGE){
 
       $scope.loading = false;
 
@@ -13,39 +13,28 @@ define(['auth/auth','auth/filters/roleFilter'], function(auth){
         $auth.login($scope.user)
         .then(function(response) {
           loaded();
-          if (response.status === 200) {
-            roles = response.data.userRoleList;
-            var rolesStorage = [];
-            //change username
-            localStorage.setItem('username',$scope.user.account);
-            $scope.$emit('navbar:authenticate',true);
-            if (roles.length > 1) {
-              angular.forEach(roles, function (role,key) {
-                var roleStorage = {
-                  roleConstant: $filter('roleFilter')(role.roleId),
-                  userRoleId: role.userRoleId
-                };
-                rolesStorage.push(roleStorage);
-              });
-              localStorage.setItem('roleList',JSON.stringify(rolesStorage));
-              $location.path('/roles');
-            } else {
-              var roleId = roles[0].roleId;
-              var roleName = $filter('roleFilter')(roleId);
-              rolesStorage.push($filter('roleFilter')(roleId));
-              localStorage.setItem('roleList',JSON.stringify(rolesStorage));
-              localStorage.setItem('currentRole',roleName);
-              localStorage.setItem('userRoleId',roles[0].userRoleId);
-              $scope.$emit('navbar:selectRole',roleName);
-              $location.path(ROLE[roleName].PATH);
-            }
-          } else {
-            showError(response.statusText);
-          }
+          getUserRole();
         }, function (error) {
+          error.data.code = 401;
           showError(error);
         });
       };
+
+      function getUserRole() {
+        authFactory.get({method:'me'}).then(function(result) {
+          loaded();
+          console.log('RESULT ==> ', result);
+          localStorage.setItem('username', result.name);
+          var roleId = result.u_type;
+          var roleName = $filter('roleFilter')(roleId);
+          localStorage.setItem('currentRole',roleName);
+          $scope.$emit('navbar:authenticate',true);
+          $scope.$emit('navbar:selectRole',roleName);
+          $location.path(ROLE[roleName].PATH);
+        }, function (error) {
+
+        });
+      }
 
       $scope.cleanAlert = function(){
         $scope.alert = null;
@@ -53,7 +42,7 @@ define(['auth/auth','auth/filters/roleFilter'], function(auth){
 
       function showError(error) {
         loaded();
-        $scope.alert = MESSAGE.ERROR;
+        $scope.alert = $filter('errorFilter')(error.data.code);
         console.log('error -> ',error);
       }
 

@@ -14,10 +14,10 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
-  <div class="container">
+  <div class="wrapper">
     <navbar></navbar>
+    <div ng-view ng-style="container" class="app-container wrapper"></div>
   </div>
-  <div ng-view ng-style="container" class="app-container wrapper"></div>
   <script type="text/javascript" src="../lib/requirejs/require.js" data-main="modules/main"></script>
 </body>
 </html>

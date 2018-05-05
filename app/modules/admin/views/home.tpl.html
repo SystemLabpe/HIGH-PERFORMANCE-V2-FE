@@ -1,5 +1,31 @@
 <section id="admin-home">
-  <div class="container text-center">
-    <h2>{{text}}</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Clubs</h2>
+        <button type="button" class="btn btn-info" ng-click="addClub()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <ul class="club-list">
+          <li class="club-item" ng-repeat="club in clubList track by club.id">
+            <div class="club-items" ng-click="goClub(club)">
+              <div class="club-logo">
+                <img src="img/club_1.png" width="21" height="28" alt="">
+              </div>
+              <p>{{club.full_name}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-md-offset-1">
+        <h2>Mantenimiento</h2>
+        <div class="crud-btn">
+          <a href="#">Zonas de campo</a>
+        </div>
+        <div class="crud-btn">
+          <a href="#">Tipo de Inicio</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

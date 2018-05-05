@@ -1,0 +1,110 @@
+<section id="admin-club-detail">
+  <div class="player-profile-section page-title-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="section-title profile-title">
+            <div class="match-left">
+              <div class="today-team-img teamsname">
+                <a href="#"><img src="img/club_1.png" width="65" height="63" alt=""></a>
+              </div>
+            </div>
+            <h1>{{club.full_name}}</h1>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="pagination-area">
+            <ul>
+              <li><a href="#">Home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+              <li class="active"><a href="#">Club</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="clubLoading"></ng-include>
+        <uib-alert type="{{clubAlert.type}}" close="cleanAlertClub()" ng-show="clubAlert">{{clubAlert.text}}</uib-alert>
+        <form class="form-horizontal" ng-submit="submitClub()">
+          <div class="form-group">
+            <label for="club-name" class="col-md-2 control-label">Nombre</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="club-name" placeholder="Nombre de Club" ng-model="club.full_name" required>
+            </div>
+            <div class="col-md-2">
+              <button class="btn" type="submit"> {{clubSubmitButton}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" ng-show="club.id">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="crud-list" ng-show="subOption === 1">
+          <div class="crud-header">
+            <h2>Administradores</h2>
+          </div>
+          <uib-alert type="{{clubAdminAlert.type}}" close="cleanAlertClubAdmin()" ng-show="clubAdminAlert">{{clubAdminAlert.text}}</uib-alert>
+          <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="clubAdminListLoading"></ng-include>
+          <table class="table crud-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th class="crud-option-add">
+                  <button type="button" class="btn btn-info btn-add" ng-click="goAddAmin()">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="admin in adminList track by admin.id">
+                <td>{{admin.name}}</td>
+                <td>{{admin.email}}</td>
+                <td class="crud-options">
+                  <button type="button" class="btn btn-warning" ng-click="goEditAdmin(admin)">
+                    <i class="fa fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" ng-click="goRemoveAdmin(admin)">
+                    <i class="fa fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="crud-list" ng-show="subOption === 2 || subOption === 3">
+          <div class="crud-header">
+            <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
+            <h2>Agregar Administrador</h2>
+          </div>
+          <uib-alert type="{{clubAdminAlertError.TYPE}}" close="cleanAlertClubAdminError()" ng-show="clubAdminAlertError">{{clubAdminAlertError.TEXT}}</uib-alert>
+          <form class="form-horizontal" ng-submit="clubAdminSubmit()">
+            <div class="form-group">
+              <label for="admin-name" class="col-md-2 control-label">Nombre</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" id="admin-name" placeholder="Nombre" ng-model="clubAdmin.name" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="admin-email" class="col-md-2 control-label">Usuario</label>
+              <div class="col-md-8">
+                <input type="email" class="form-control" id="admin-email" placeholder="Usuario" ng-model="clubAdmin.email" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12 text-center">
+                <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="clubAdminLoading"></ng-include>
+                <button type="submit" class="btn btn-success">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

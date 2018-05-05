@@ -2,7 +2,10 @@ define(['bootstrap','bootstrapUI',
   'shared/shared','shared/directives/navbar','shared/controllers/userSettingsController',
   'auth/auth','auth/factories/authFactory','auth/controllers/roleController',
   'auth/controllers/loginController','auth/controllers/logoutController',
-  'admin/admin','admin/controllers/homeController','admin/controllers/roleController',
+  'admin/admin','admin/controllers/homeController', 'admin/controllers/clubController',
+
+
+  'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
   'angularRoute','config'],function(){
   'use strict';
@@ -15,8 +18,7 @@ define(['bootstrap','bootstrapUI',
 
       $routeProvider
       .when('/', {
-        // templateUrl : 'modules/home.html'
-        templateUrl : 'modules/auth/views/login_2.tpl.html',
+        templateUrl : 'modules/auth/views/login.tpl.html',
         controller  : 'auth.loginController',
         resolve     : {
           skipIfLoggedIn: ['auth.authFactory',function (authFactory) {
@@ -37,35 +39,44 @@ define(['bootstrap','bootstrapUI',
         template : null,
         controller  : 'auth.logoutController'
       })
-      .when('/configuracion', {
-        templateUrl : 'modules/shared/views/user-settings.tpl.html',
-        controller  : 'shared.userSettingsController',
-        resolve     : {
-          loginRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRequired();
-          }]
-        }
-      })
-      .when('/perfil', {
-        templateUrl : 'modules/shared/views/profile.tpl.html',
-        resolve     : {
-          loginRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRequired();
-          }]
-        }
-      })
-      .when('/roles', {
-        templateUrl : 'modules/auth/views/roles.tpl.html',
-        controller  : 'auth.roleController',
-        resolve     : {
-          loginRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRequired();
-          }]
-        }
-      })
+      // .when('/configuracion', {
+      //   templateUrl : 'modules/shared/views/user-settings.tpl.html',
+      //   controller  : 'shared.userSettingsController',
+      //   resolve     : {
+      //     loginRequired: ['auth.authFactory',function (authFactory) {
+      //       return authFactory.loginRequired();
+      //     }]
+      //   }
+      // })
+      // .when('/perfil', {
+      //   templateUrl : 'modules/shared/views/profile.tpl.html',
+      //   resolve     : {
+      //     loginRequired: ['auth.authFactory',function (authFactory) {
+      //       return authFactory.loginRequired();
+      //     }]
+      //   }
+      // })
+      // .when('/roles', {
+      //   templateUrl : 'modules/auth/views/roles.tpl.html',
+      //   controller  : 'auth.roleController',
+      //   resolve     : {
+      //     loginRequired: ['auth.authFactory',function (authFactory) {
+      //       return authFactory.loginRequired();
+      //     }]
+      //   }
+      // })
       .when('/admin', {
         templateUrl : 'modules/admin/views/home.tpl.html',
         controller  : 'admin.homeController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/club', {
+        templateUrl : 'modules/admin/views/club-detail.tpl.html',
+        controller  : 'admin.clubController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
             return authFactory.loginRolRequired(ROLE.ADMIN.ID);

@@ -1,19 +1,41 @@
 define(['admin/admin','../../auth/factories/authFactory'], function(admin){
   'use strict';
 
-  admin.controller('admin.homeController',['$scope','$http','$auth','auth.authFactory',
-    function ($scope,$http,$auth,authFactory) {
+  admin.controller('admin.homeController',['$scope','$location','$auth','auth.authFactory',
+    function ($scope,$location,$auth,authFactory) {
 
-      $scope.text = 'ADMIN - HOME';
+      $scope.clubList = [];
 
-      $scope.testAuth = function() {
-        authFactory.list({method:'getUser'}).then(function(result) {
-          console.log('test Auth -> ', result);
+      $scope.getClubList = function() {
+        authFactory.get({entity:'clubs',method:'customers'}).then(function(result) {
+          $scope.clubList = result.data;
         }, function (error) {
-          console.log('ERROR AUTH: ', error);
+
         });
+        // $scope.clubList = [
+        //   {
+        //     id: 1,
+        //     full_name: 'Sport Loreto'
+        //   },
+        //   {
+        //     id: 2,
+        //     full_name: 'Universitario de Deportes'
+        //   }
+        // ];
       };
 
+      $scope.getClubList();
+
+      $scope.addClub = function() {
+        $location.path('/admin/club');
+      };
+
+      $scope.goClub = function(club) {
+        sessionStorage.setItem('club',JSON.stringify(club));
+        $location.path('/admin/club');
+      };
+
+      sessionStorage.removeItem('club');
   }]);
 
 });

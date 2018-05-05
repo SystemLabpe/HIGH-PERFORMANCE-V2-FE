@@ -3,20 +3,21 @@ define([],function(){
 
   var config = angular.module('config', []);
 
-  config.constant('BASE_URL','http://192.168.1.34:8080');
+  config.constant('BASE_URL','http://18.188.252.113/api');
 
   config.constant(
     'AUTH', {
-      LOGIN_URL: '/auth',
-      AUTH_HEADER: 'X-Auth-Token',
-      AUTH_TOKEN: null
+      LOGIN_URL: '/login',
+      AUTH_HEADER: 'Authorization',
+      AUTH_TOKEN: 'Bearer',
+      AUTH_TOKEN_NAME: 'access_token'
     }
   );
 
   config.constant(
     'ROLE', {
       ADMIN: {
-        ID:1,
+        ID:2,
         NAME:'Administrador',
         PATH:'/admin',
         ROUTES: [
@@ -31,7 +32,7 @@ define([],function(){
         ]
       },
       CLIENT: {
-        ID: 2,
+        ID: 1,
         NAME: "Club",
         PATH: "/club",
         ROUTES: [

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-embossed" role="navigation" ng-if="isAuthenticated">
+<!-- <nav class="navbar navbar-inverse navbar-embossed" role="navigation" ng-if="isAuthenticated">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
       <span class="sr-only">Toggle navigation</span>
@@ -19,4 +19,38 @@
       </a>
     </div>
   </div>
+</nav> -->
+
+
+
+<div class="header-section" ng-if="isAuthenticated">
+  <!-- Start Navigation -->
+  <nav class="navbar navbar-default cart">
+    <div class="container">
+
+     <!-- Start Atribute Navigation -->
+     <div class="attr-nav shoping-cart-box">
+        <a href="/logout" class="dropdown-toggle" ng-click="collapse()">
+          <i class="fa fa-sign-out"></i>
+        </a>
+        <div class="shop-cart">
+          <span class="cart-price">{{navRole}}</span>
+          <p>{{navUsername}}</p>
+        </div>
+    </div>
+    <!-- End Atribute Navigation -->
+
+    <!-- Start Header Navigation -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed top-m-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img src="img/logo.png" class="logo" alt=""></a>
+    </div>
+    <!-- End Header Navigation -->
+  </div>
 </nav>
+</div>

@@ -55,7 +55,7 @@ define(['auth/auth','auth/services/authService'],function(auth){
         var deferred = $q.defer();
 
         authService.get(params).$promise.then(function(result) {
-          deferred.resolve(result);
+          deferred.resolve(result.data);
         }, function(errorMsg) {
           deferred.reject(errorMsg);
         });
@@ -79,7 +79,7 @@ define(['auth/auth','auth/services/authService'],function(auth){
         var deferred = $q.defer();
 
         authService.save(params,request).$promise.then(function(result) {
-          deferred.resolve(result);
+          deferred.resolve(result.data);
         }, function(errorMsg) {
           deferred.reject(errorMsg);
         });
@@ -91,7 +91,7 @@ define(['auth/auth','auth/services/authService'],function(auth){
         var deferred = $q.defer();
 
         authService.put(params,request).$promise.then(function(result) {
-          deferred.resolve(result);
+          deferred.resolve(result.data);
         }, function(errorMsg) {
           deferred.reject(errorMsg);
         });

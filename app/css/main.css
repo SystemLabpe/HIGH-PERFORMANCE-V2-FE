@@ -52,7 +52,7 @@ h2 {
   border: 1px solid #34495e;
   border-radius: 15px;
   padding: 5px 14px;
-  margin-top: 5px;
+  cursor: pointer;
 }
 
 .btn-back:hover {
@@ -109,13 +109,35 @@ h2 {
 /* ==================================================
    Navbar
 ================================================== */
-.navbar-user-settings .logout {
+/*.navbar-user-settings .logout {
   padding: 6px 12px;
   font-size: 18px;
 }
 
 .navbar {
   margin-bottom: 0px !important;
+}*/
+
+.navbar-default {
+  border: none;
+  border-bottom: 1px solid #e7e7e7 !important;
+}
+
+.attr-nav a {
+  color: #6f6f6f;
+  padding: 8px 15px;
+  position: relative;
+}
+
+.fa-sign-out {
+  float: left;
+  font-size: 16px;
+  height: 43px;
+  width: 43px;
+  border: 2px solid #f1f1f1;
+  border-radius: 5px;
+  text-align: right;
+  padding: 10px;
 }
 
 /* ==================================================
@@ -165,17 +187,39 @@ h2 {
 /* ==================================================
    CRUD
 ================================================== */
+.crud-table {
+  margin-top: 20px;
+}
+
+.crud-table tbody > tr > td {
+  vertical-align: middle;
+}
+
 .crud-table .crud-options,
 .crud-table .crud-option-add {
   text-align: right;
 }
 
 .crud-table .crud-options button {
-  padding: 6px 9px;
+  padding: 4px 9px;
 }
 
 .crud-table .crud-option-add button {
   padding: 6px 16px;
+}
+
+.crud-header {
+  position: relative;
+}
+
+.crud-header .btn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.crud-header h2 {
+  position: initial !important;
 }
 
 /* ==================================================
@@ -202,4 +246,114 @@ h2 {
 
 .login-container .login-form {
   margin-top: 40px;
+}
+
+/* ==================================================
+   Admin - Home
+================================================== */
+#admin-home {
+
+}
+
+#admin-home .container {
+  margin-top: 40px;
+}
+
+#admin-home h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+#admin-home .crud-btn {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#admin-home .crud-btn > a {
+  border: 1px solid #c4c4c4;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: #24252f;
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  display: block;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#admin-home .crud-btn > a:hover {
+  background: #fec722;
+  color: #24252f;
+  font-weight: 700;
+}
+
+#admin-home .club-list .club-items {
+  background-color: transparent;
+  border: 1px solid #c4c4c4;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#admin-home .club-list .club-items:hover {
+  background: #fec722;
+}
+
+#admin-home .club-list .club-items:hover p {
+  color: #24252f;
+  font-weight: 700;
+}
+
+#admin-home .club-list .club-items > .club-logo {
+  width: 50px;
+  height: 50px;
+  margin: 4px 15px 0px 5px;
+}
+
+#admin-home .club-list .club-items > .club-logo > img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #c4c4c4;
+}
+
+#admin-home .club-list .club-items > p {
+  font-size: 16px;
+  top: 18px;
+  color: #24252f;
+}
+
+/* ==================================================
+   Admin - Club Detail
+================================================== */
+#admin-club-detail {
+
+}
+
+#admin-club-detail .page-title-section {
+  background-image: url(../img/bg-1.jpg);
+  background-position: center;
+  margin-bottom: 40px;
+}
+
+#admin-club-detail h1 {
+  font-size: 36px;
+  color: #fff;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+#admin-club-detail h2 {
+  margin-top: 40px !important;
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
 }

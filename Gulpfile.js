@@ -27,10 +27,10 @@ gulp.task('jshint', function() {
   .pipe(connect.reload());
 });
 
-// gulp.task('css', function() {
-//   gulp.src('./app/css/*.css')
-//   .pipe(connect.reload());
-// });
+gulp.task('css', function() {
+  gulp.src('./app/css/*.css')
+  .pipe(connect.reload());
+});
 
 gulp.task('html', function() {
   gulp.src('./app/**/*.html')
@@ -39,7 +39,7 @@ gulp.task('html', function() {
 
 gulp.task('watch', function() {
   gulp.watch(['./app/**/*.html'], ['html']);
-  // gulp.watch(['./app/css/**/*.css'], ['css']);
+  gulp.watch(['./app/css/**/*.css'], ['css']);
   gulp.watch(['./app/modules/**/*.js', './app/modules/**/**/*.js',
     './Gulpfile.js'], ['jshint']);
 });
