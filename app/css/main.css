@@ -359,7 +359,7 @@ h2 {
 }
 
 /* ==================================================
-   Admin - Home
+   Admin - CRUD Field Area
 ================================================== */
 #admin-crud-field-area {
 
@@ -373,3 +373,20 @@ h2 {
   border-bottom: 3px solid #fec722;
   margin-bottom: 28px;
 }
+
+/* ==================================================
+   Admin - CRUD Start Type
+================================================== */
+#admin-crud-start-type {
+
+}
+
+#admin-crud-start-type .container {
+  margin-top: 40px;
+}
+
+#admin-crud-start-type h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+

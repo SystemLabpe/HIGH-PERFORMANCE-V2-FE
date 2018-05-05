@@ -3,7 +3,7 @@ define(['bootstrap','bootstrapUI',
   'auth/auth','auth/factories/authFactory','auth/controllers/roleController',
   'auth/controllers/loginController','auth/controllers/logoutController',
   'admin/admin','admin/controllers/homeController', 'admin/controllers/clubController',
-  'admin/controllers/fieldAreaController',
+  'admin/controllers/fieldAreaController','admin/controllers/startTypeController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -86,6 +86,15 @@ define(['bootstrap','bootstrapUI',
       .when('/admin/field-area', {
         templateUrl : 'modules/admin/views/crud-field-area.tpl.html',
         controller  : 'admin.fieldAreaController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/start-type', {
+        templateUrl : 'modules/admin/views/crud-start-type.tpl.html',
+        controller  : 'admin.startTypeController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
             return authFactory.loginRolRequired(ROLE.ADMIN.ID);
