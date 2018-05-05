@@ -357,3 +357,19 @@ h2 {
   border-bottom: 3px solid #fec722;
   margin-bottom: 28px;
 }
+
+/* ==================================================
+   Admin - Home
+================================================== */
+#admin-crud-field-area {
+
+}
+
+#admin-crud-field-area .container {
+  margin-top: 40px;
+}
+
+#admin-crud-field-area h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}

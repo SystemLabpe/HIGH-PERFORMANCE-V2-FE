@@ -65,12 +65,14 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
       $scope.goAddAmin = function() {
         $scope.subOption = 2;
         $scope.clubAdmin = {};
+        $scope.crudOption = 'Agregar';
         $scope.cleanAlertClubAdminError();
       };
 
       $scope.goEditAdmin = function(admin) {
         $scope.subOption = 3;
         $scope.clubAdmin = admin;
+        $scope.crudOption = 'Editar';
         $scope.cleanAlertClubAdminError();
       };
 

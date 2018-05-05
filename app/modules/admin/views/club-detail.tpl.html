@@ -80,7 +80,7 @@
         <div class="crud-list" ng-show="subOption === 2 || subOption === 3">
           <div class="crud-header">
             <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
-            <h2>Agregar Administrador</h2>
+            <h2>{{crudOption}} Administrador</h2>
           </div>
           <uib-alert type="{{clubAdminAlertError.TYPE}}" close="cleanAlertClubAdminError()" ng-show="clubAdminAlertError">{{clubAdminAlertError.TEXT}}</uib-alert>
           <form class="form-horizontal" ng-submit="clubAdminSubmit()">
