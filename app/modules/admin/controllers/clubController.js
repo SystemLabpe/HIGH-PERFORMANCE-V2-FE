@@ -32,13 +32,14 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
 
       function downloadClubPicture() {
         if ($scope.club.picture) {
+          console.log('mnahaaaaaaa ==> ', /[^.]+$/.exec($scope.club.picture));
           imageFactory.getImage($scope.club.picture)
           .then(function(data) {
-            var file = new File([data], image.location, { type: data.type });
+            var file = new File([data], $scope.club.picture, { type: data.type });
             var dummy = new FileUploader.FileItem(uploader, {});
             dummy._file = file;
             dummy.file.mediaId = 122;
-            dummy.file.name = image.location;
+            dummy.file.name = $scope.club.picture;
             dummy.file.type = data.type;
             dummy.file.isProfile = false;
 
@@ -46,8 +47,6 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
             dummy.size = 10000;
             dummy.isUploaded = true;
             dummy.isSuccess = true;
-
-            dummy.order = image.order;
 
             uploader.queue.push(dummy);
           }, function() {
