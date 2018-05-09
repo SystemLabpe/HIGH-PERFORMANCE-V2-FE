@@ -1,5 +1,5 @@
 define(['bootstrap','bootstrapUI',
-  'shared/shared','shared/directives/navbar','shared/controllers/userSettingsController',
+  'shared/shared','shared/directives/navbar','shared/directives/ngthumb','shared/controllers/userSettingsController',
   'auth/auth','auth/factories/authFactory','auth/controllers/roleController',
   'auth/controllers/loginController','auth/controllers/logoutController',
   'admin/admin','admin/controllers/homeController', 'admin/controllers/clubController',

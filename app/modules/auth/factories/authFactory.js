@@ -110,6 +110,19 @@ define(['auth/auth','auth/services/authService'],function(auth){
 
         return deferred.promise;
       }
+
+      authFactory.sendFile = function(params,request) {
+        var deferred = $q.defer();
+
+        authService.sendFile(params,request).$promise.then(function(result) {
+          deferred.resolve(result);
+        }, function(errorMsg) {
+          deferred.reject(errorMsg);
+        });
+
+        return deferred.promise;
+      };
+
       return authFactory;
     }
   ]);

@@ -3,7 +3,9 @@ define([],function(){
 
   var config = angular.module('config', []);
 
-  config.constant('BASE_URL','http://18.188.252.113/api');
+  // config.constant('BASE_URL','http://18.188.252.113/api');
+  config.constant('BASE_URL','http://10.168.1.138:8080/api');
+  config.constant('BASE_URL_IMG','http://18.188.252.113/img/');
 
   config.constant(
     'AUTH', {

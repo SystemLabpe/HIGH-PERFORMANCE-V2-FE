@@ -6,7 +6,8 @@ require.config({
     satellizer      : '../lib/satellizer/satellizer',
     bootstrap       : '../lib/bootstrap/dist/js/bootstrap',
     bootstrapUI     : '../lib/angular-bootstrap/ui-bootstrap-tpls',
-    jquery          : '../lib/jquery/dist/jquery'
+    jquery          : '../lib/jquery/dist/jquery',
+    angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min'
   },
   shim:  {
     angular: {
@@ -19,6 +20,9 @@ require.config({
       deps  : ['angular']
     },
     satellizer: {
+      deps  : ['angular']
+    },
+    angularFileUpload: {
       deps  : ['angular']
     },
     jquery: {

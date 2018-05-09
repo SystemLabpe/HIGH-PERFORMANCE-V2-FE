@@ -113,6 +113,65 @@ h2 {
   transition: all 0.5s;
 }
 
+.file-upload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+#admin-club-detail canvas {
+  background-color: #f3f3f3;
+  -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  box-shadow: 3px 3px 3px 0 #e3e3e3;
+  border: 1px solid #c3c3c3;
+  /*height: 200px;*/
+  margin: 0 auto;
+  display: block;
+}
+
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  width: 90px;
+  padding: 8px 15px;
+  background-color: #fec722;
+  font-weight: 700;
+  font-size: 12px;
+  border: none;
+  box-shadow: none;
+  line-height: 1;
+  outline: none;
+  border-radius: 3px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  margin-top: 20px;
+}
+
+.drop-zone {
+  height: 120px;
+  padding: 18% 0;
+}
+
+.file-upload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
 /* ==================================================
    Spinner
 ================================================== */
@@ -435,6 +494,21 @@ form button.btn-yellow {
   margin-top: 40px !important;
   border-bottom: 3px solid #fec722;
   margin-bottom: 28px;
+}
+
+#admin-club-detail .match-left .today-team-img {
+  margin-right: 30px;
+  width: 105px;
+  height: 105px;
+}
+
+#admin-club-detail .image-upload {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#admin-club-detail .image-upload p {
+  font-size: 11px;
 }
 
 /* ==================================================

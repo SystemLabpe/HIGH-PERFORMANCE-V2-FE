@@ -1,8 +1,9 @@
-define(['admin/admin','../../auth/factories/authFactory','../../shared/factories/modalFactory','../../shared/factories/errorFactory'], function(admin){
+define(['admin/admin','../../auth/factories/authFactory','../../shared/factories/modalFactory','../../shared/factories/errorFactory',
+  '../../shared/factories/imageFactory'], function(admin){
   'use strict';
 
-  admin.controller('admin.clubController',['$scope','$filter','$auth','auth.authFactory','shared.modalFactory','shared.errorFactory',
-    function ($scope,$filter,$auth,authFactory,modalFactory,errorFactory) {
+  admin.controller('admin.clubController',['$scope','$filter','$auth','auth.authFactory','shared.modalFactory','shared.errorFactory','shared.imageFactory','FileUploader',
+    function ($scope,$filter,$auth,authFactory,modalFactory,errorFactory,imageFactory,FileUploader) {
 
       $scope.subOption = 1; // 1: list, 2:add, 3:edit
       $scope.club = {};
@@ -11,6 +12,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
       $scope.clubSubmitButton = '';
       if(sessionStorage.getItem('club')) {
         $scope.club = JSON.parse(sessionStorage.getItem('club'));
+        downloadClubPicture();
         $scope.clubSubmitButton = 'Editar';
       } else {
         $scope.clubSubmitButton = 'Agregar';
@@ -22,12 +24,69 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
       $scope.clubAdminAlert = null;
       $scope.clubAdminListLoading = false;
 
+      var uploader = $scope.uploader = new FileUploader();
+      uploader.onAfterAddingFile  = function(item) {
+        uploader.queue = [];
+        uploader.queue[0] = item;
+      };
+
+      function downloadClubPicture() {
+        if ($scope.club.picture) {
+          imageFactory.getImage($scope.club.picture)
+          .then(function(data) {
+            var file = new File([data], image.location, { type: data.type });
+            var dummy = new FileUploader.FileItem(uploader, {});
+            dummy._file = file;
+            dummy.file.mediaId = 122;
+            dummy.file.name = image.location;
+            dummy.file.type = data.type;
+            dummy.file.isProfile = false;
+
+            dummy.progress = 100;
+            dummy.size = 10000;
+            dummy.isUploaded = true;
+            dummy.isSuccess = true;
+
+            dummy.order = image.order;
+
+            uploader.queue.push(dummy);
+          }, function() {
+
+          });
+        }
+      }
+
       $scope.submitClub = function() {
         $scope.cleanAlertClub();
         loadingClub();
+
+        if ($scope.uploader.queue.length === 1) {
+          var fd = new FormData();
+
+          fd.append('file',$scope.uploader.queue[0]._file);
+          fd.append('type','club')
+
+          authFactory.sendFile({entity:'file',method:'upload'},fd)
+          .then(function(result) {
+            saveClub(result.data)
+          }, function (error) {
+
+          });
+        } else {
+          saveClub();
+        }
+      };
+
+      function saveClub(pictureURL) {
+        if (pictureURL) {
+          $scope.club.picture = pictureURL;
+        }
         if ($scope.club.id) {
           authFactory.edit({entity:'clubs', method:'customer', id: $scope.club.id}, $scope.club).then(function(result) {
             loadedClub();
+            if (pictureURL) {
+              $scope.club.picture = pictureURL;
+            }
             $scope.clubAlert = errorFactory.getCustomAlert('success','Club editado satisfactoriamente');
           }, function (error) {
 
@@ -43,7 +102,9 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
 
           });
         }
-      };
+      }
+
+
 
       $scope.getAdminList = function() {
         $scope.clubAdminListLoading = true;

@@ -57,6 +57,10 @@ define(['auth/auth'],function(auth){
               response.status = status;
               return response;
             }
+          },
+          'sendFile': {
+            method:'POST' ,params: {entity : '@entity', method:'@method'}, isArray:false,
+            transformRequest: angular.identity, headers: {'Content-Type':undefined}
           }
         }
       );

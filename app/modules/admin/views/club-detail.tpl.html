@@ -6,7 +6,9 @@
           <div class="section-title profile-title">
             <div class="match-left">
               <div class="today-team-img teamsname">
-                <a href="#"><img src="img/club_1.png" width="65" height="63" alt=""></a>
+                <a href="#">
+                  <img ng-src="{{club.picture}}" width="65" height="63" alt="" ng-show="club.picture">
+                </a>
               </div>
             </div>
             <h1>{{club.full_name}}</h1>
@@ -29,6 +31,26 @@
         <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="clubLoading"></ng-include>
         <uib-alert type="{{clubAlert.type}}" close="cleanAlertClub()" ng-show="clubAlert">{{clubAlert.text}}</uib-alert>
         <form class="form-horizontal" ng-submit="submitClub()">
+          <div class="form-group">
+            <div class="col-md-4 col-md-offset-3">
+              <div ng-repeat="clubImage in uploader.queue">
+                <div ng-show="uploader.isHTML5" ng-thumb="{ file: uploader.queue[0]._file}"></div>
+              </div>
+            </div>
+            <div class="col-md-3 image-upload">
+              <div nv-file-drop="" uploader="uploader">
+                <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well drop-zone">
+                  Arrastre imagen
+                  <div class="file-upload btn">
+                    <span class="fui-upload"></span>
+                    <span><span class="glyphicon glyphicon-upload"></span> Imagen</span>
+                    <input type="file" class="upload" nv-file-select="" uploader="uploader"/>
+                  </div>
+                </div>
+              </div>
+              <p>Dimensiones: 150 x 150 px</p>
+            </div>
+          </div>
           <div class="form-group">
             <label for="club-name" class="col-md-2 control-label">Nombre</label>
             <div class="col-md-8">
