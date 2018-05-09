@@ -32,7 +32,6 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
 
       function downloadClubPicture() {
         if ($scope.club.picture) {
-          console.log('mnahaaaaaaa ==> ', /[^.]+$/.exec($scope.club.picture));
           imageFactory.getImage($scope.club.picture)
           .then(function(data) {
             var file = new File([data], $scope.club.picture, { type: data.type });
