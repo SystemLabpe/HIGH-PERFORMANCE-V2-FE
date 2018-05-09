@@ -14,7 +14,12 @@ define(['bootstrap','bootstrapUI',
 
   app.config(['$locationProvider','$routeProvider','ROLE',
     function($locationProvider,$routeProvider,ROLE){
-      $locationProvider.html5Mode(true);
+      // $locationProvider.html5Mode(true);
+
+      $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: true
+      });
 
       $routeProvider
       .when('/', {
