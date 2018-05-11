@@ -10,7 +10,7 @@
           <li class="club-item" ng-repeat="club in clubList track by club.id">
             <div class="club-items" ng-click="goClub(club)">
               <div class="club-logo">
-                <img src="img/club_1.png" width="21" height="28" alt="">
+                <img ng-src="{{club.picture}}" width="21" height="28" alt="">
               </div>
               <p>{{club.full_name}}</p>
             </div>
