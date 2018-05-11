@@ -502,12 +502,12 @@ form button.btn-yellow {
   height: 105px;
 }
 
-#admin-club-detail .image-upload {
+.image-upload {
   text-align: center;
   margin-bottom: 60px;
 }
 
-#admin-club-detail .image-upload p {
+.image-upload p {
   font-size: 11px;
 }
 
@@ -543,3 +543,194 @@ form button.btn-yellow {
   margin-bottom: 28px;
 }
 
+/* ==================================================
+   Admin - CRUD Initial Penetration
+================================================== */
+#admin-crud-initial-penetration {
+
+}
+
+#admin-crud-initial-penetration .container {
+  margin-top: 40px;
+}
+
+#admin-crud-initial-penetration h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Player Position
+================================================== */
+#admin-crud-player-position {
+
+}
+
+#admin-crud-player-position .container {
+  margin-top: 40px;
+}
+
+#admin-crud-player-position h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Field Zone
+================================================== */
+#admin-crud-field-zone {
+
+}
+
+#admin-crud-field-zone .container {
+  margin-top: 40px;
+}
+
+#admin-crud-field-zone h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Rival Level Invation
+================================================== */
+#admin-crud-invation-level {
+
+}
+
+#admin-crud-invation-level .container {
+  margin-top: 40px;
+}
+
+#admin-crud-invation-level h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Rival Numerical Balance
+================================================== */
+#admin-crud-numerical-balance {
+
+}
+
+#admin-crud-numerical-balance .container {
+  margin-top: 40px;
+}
+
+#admin-crud-numerical-balance h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Pass Posession
+================================================== */
+#admin-crud-pass-possession {
+
+}
+
+#admin-crud-pass-possession .container {
+  margin-top: 40px;
+}
+
+#admin-crud-pass-possession h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Penetration Passess Type
+================================================== */
+#admin-crud-penetrating-passes {
+
+}
+
+#admin-crud-penetrating-passes .container {
+  margin-top: 40px;
+}
+
+#admin-crud-penetrating-passes h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Progression Type
+================================================== */
+#admin-crud-progression-type {
+
+}
+
+#admin-crud-progression-type .container {
+  margin-top: 40px;
+}
+
+#admin-crud-progression-type h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Finalization Pentagon
+================================================== */
+#admin-crud-pentagon-completion {
+
+}
+
+#admin-crud-pentagon-completion .container {
+  margin-top: 40px;
+}
+
+#admin-crud-pentagon-completion h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Previous Action
+================================================== */
+#admin-crud-previous-action {
+
+}
+
+#admin-crud-previous-action .container {
+  margin-top: 40px;
+}
+
+#admin-crud-previous-action h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Ending Possession
+================================================== */
+#admin-crud-completion-action {
+
+}
+
+#admin-crud-completion-action .container {
+  margin-top: 40px;
+}
+
+#admin-crud-completion-action h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+/* ==================================================
+   Admin - CRUD Ending Possession
+================================================== */
+#admin-crud-stopped-ball {
+
+}
+
+#admin-crud-stopped-ball .container {
+  margin-top: 40px;
+}
+
+#admin-crud-stopped-ball h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}

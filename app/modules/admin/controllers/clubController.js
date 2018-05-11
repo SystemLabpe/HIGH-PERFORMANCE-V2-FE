@@ -2,7 +2,8 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
   '../../shared/factories/imageFactory'], function(admin){
   'use strict';
 
-  admin.controller('admin.clubController',['$scope','$filter','$auth','auth.authFactory','shared.modalFactory','shared.errorFactory','shared.imageFactory','FileUploader',
+  admin.controller('admin.clubController',['$scope','$filter','$auth',
+    'auth.authFactory','shared.modalFactory','shared.errorFactory','shared.imageFactory','FileUploader',
     function ($scope,$filter,$auth,authFactory,modalFactory,errorFactory,imageFactory,FileUploader) {
 
       $scope.subOption = 1; // 1: list, 2:add, 3:edit

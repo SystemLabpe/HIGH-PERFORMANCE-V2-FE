@@ -1,31 +1,31 @@
-<section id="admin-crud-field-area">
+<section id="admin-crud-progression-type">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
         <div ng-show="subOption === 1">
-          <h2>Áreas de Campo</h2>
-          <uib-alert type="{{fieldAreaListAlert.type}}" close="cleanAlertFieldAreaList()" ng-show="fieldAreaListAlert">{{fieldAreaListAlert.text}}</uib-alert>
-          <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="fieldAreaListLoading"></ng-include>
+          <h2>Tipos de Progresión</h2>
+          <uib-alert type="{{progressionTypeListAlert.type}}" close="cleanAlertProgressionTypeList()" ng-show="progressionTypeListAlert">{{progressionTypeListAlert.text}}</uib-alert>
+          <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="progressionTypeListLoading"></ng-include>
           <table class="table crud-table">
             <thead>
               <tr>
                 <th>Nombre</th>
                 <th class="crud-option-add">
-                  <button type="button" class="btn btn-info btn-add" ng-click="goAddFieldArea()">
+                  <button type="button" class="btn btn-info btn-add" ng-click="goAddProgressionType()">
                     <i class="fa fa-plus"></i>
                   </button>
                 </th>
               </tr>
             </thead>
-            <tbody ng-repeat="fieldArea in fieldAreaList track by fieldArea.id">
+            <tbody ng-repeat="progressionType in progressionTypeList track by progressionType.id">
               <tr>
-                <td>{{fieldArea.name}}</td>
+                <td>{{progressionType.name}}</td>
                 <td class="crud-options">
-                  <button type="button" class="btn btn-warning" ng-click="goEditFieldArea(fieldArea)">
+                  <button type="button" class="btn btn-warning" ng-click="goEditProgressionType(progressionType)">
                     <i class="fa fa fa-pencil"></i>
                   </button>
-                  <button type="button" class="btn btn-danger" ng-click="goRemoveFieldArea(fieldArea)">
+                  <button type="button" class="btn btn-danger" ng-click="goRemoveProgressionType(progressionType)">
                     <i class="fa fa fa-trash-o"></i>
                   </button>
                 </td>
@@ -37,9 +37,9 @@
         <div ng-show="subOption === 2 || subOption === 3">
           <div class="crud-header">
             <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
-            <h2>{{crudOption}} Área de Campo</h2>
-            <uib-alert type="{{fieldAreaCrudAlert.type}}" close="cleanAlertFieldAreaCrud()" ng-show="fieldAreaCrudAlert">{{fieldAreaCrudAlert.text}}</uib-alert>
-            <form class="form-horizontal" ng-submit="fieldAreaSubmit()">
+            <h2>{{crudOption}} Tipo de Progresión</h2>
+            <uib-alert type="{{progressionTypeCrudAlert.type}}" close="cleanAlertProgressionTypeCrud()" ng-show="progressionTypeCrudAlert">{{progressionTypeCrudAlert.text}}</uib-alert>
+            <form class="form-horizontal" ng-submit="progressionTypeSubmit()">
               <div class="form-group">
                 <div class="col-md-4 col-md-offset-3">
                   <div ng-repeat="clubImage in uploader.queue">
@@ -63,18 +63,18 @@
               <div class="form-group">
                 <label for="admin-name" class="col-md-2 control-label">Nombre</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="admin-name" placeholder="Nombre" ng-model="fieldArea.name" required>
+                  <input type="text" class="form-control" id="admin-name" placeholder="Nombre" ng-model="progressionType.name" required>
                 </div>
               </div>
               <div class="form-group">
                 <label for="admin-email" class="col-md-2 control-label">Descripción</label>
                 <div class="col-md-8">
-                  <textarea name="description" class="form-control" cols="4" rows="10" placeholder="Descripción" ng-model="fieldArea.v_desc"></textarea>
+                  <textarea name="description" class="form-control" cols="4" rows="10" placeholder="Descripción" ng-model="progressionType.v_desc"></textarea>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-md-12 text-center">
-                  <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="fieldAreaCrudLoading"></ng-include>
+                  <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="progressionTypeCrudLoading"></ng-include>
                   <button type="submit" class="btn btn-yellow">Guardar</button>
                 </div>
               </div>

@@ -1,8 +1,9 @@
 define(['admin/admin','../../auth/factories/authFactory','../../shared/factories/modalFactory','../../shared/factories/errorFactory'], function(admin){
   'use strict';
 
-  admin.controller('admin.startTypeController',['$scope','$filter','$location','$auth','auth.authFactory','shared.modalFactory','shared.errorFactory',
-    function ($scope,$filter,$location,$auth,authFactory,modalFactory,errorFactory) {
+  admin.controller('admin.startTypeController',['$scope','$filter','$location','$auth',
+    'auth.authFactory','shared.modalFactory','shared.errorFactory','shared.imageFactory','FileUploader',
+    function ($scope,$filter,$location,$auth,authFactory,modalFactory,errorFactory,imageFactory,FileUploader) {
 
       $scope.subOption = 1; // 1: list, 2:add, 3:edit
       $scope.startTypeList = [];
@@ -13,6 +14,12 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
       $scope.startTypeListLoading = false;
       $scope.startTypeCrudAlert = null;
       $scope.startTypeCrudLoading = false;
+
+      var uploader = $scope.uploader = new FileUploader();
+      uploader.onAfterAddingFile  = function(item) {
+        uploader.queue = [];
+        uploader.queue[0] = item;
+      };
 
       $scope.getStartTypeList = function() {
         $scope.startTypeListLoading = true;
@@ -42,7 +49,33 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
         $scope.crudOption = 'Editar';
         $scope.startTypeListAlert = null;
         $scope.startTypeCrudAlert = null;
+        downloadPicture();
       };
+
+      function downloadPicture() {
+        if ($scope.startType.picture) {
+          $scope.startTypeCrudLoading = true;
+          imageFactory.getImage($scope.startType.picture)
+          .then(function(data) {
+            var file = new File([data], $scope.startType.picture, { type: data.type });
+            var dummy = new FileUploader.FileItem(uploader, {});
+            dummy._file = file;
+            dummy.file.mediaId = 122;
+            dummy.file.name = $scope.startType.picture;
+            dummy.file.type = data.type;
+            dummy.file.isProfile = false;
+
+            dummy.progress = 100;
+            dummy.size = 10000;
+            dummy.isUploaded = true;
+            dummy.isSuccess = true;
+
+            uploader.queue.push(dummy);
+          }, function() {
+
+          });
+        }
+      }
 
       $scope.goRemoveStartType = function(startType) {
         $scope.cleanAlertStartTypeList();
@@ -64,12 +97,33 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
       };
 
       $scope.startTypeSubmit = function() {
+        if ($scope.uploader.queue.length === 1) {
+          var fd = new FormData();
+
+          fd.append('file',$scope.uploader.queue[0]._file);
+          fd.append('type','startType')
+
+          authFactory.sendFile({entity:'file',method:'upload'},fd)
+          .then(function(result) {
+            save(result.data)
+          }, function (error) {
+
+          });
+        } else {
+          save();
+        }
+      };
+
+      function save(pictureURL) {
+        if (pictureURL) {
+          $scope.startType.picture = pictureURL;
+        }
         if ($scope.subOption === 2) {
           addStartType();
         } else if ($scope.subOption === 3) {
           editStartType();
         }
-      };
+      }
 
       function addStartType() {
         $scope.startTypeCrudLoading = true;
@@ -79,6 +133,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
           $scope.subOption = 1;
           $scope.startTypeListAlert = errorFactory.getCustomAlert('success','Tipo de Inicio agregado satisfactoriamente');
           $scope.getStartTypeList();
+          uploader.queue = [];
         }, function (error) {
           showError(error);
         });
@@ -92,6 +147,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
           $scope.subOption = 1;
           $scope.startTypeListAlert = errorFactory.getCustomAlert('success','Tipo de Inicio editado satisfactoriamente');
           $scope.getStartTypeList();
+          uploader.queue = [];
         }, function (error) {
           showError(error);
         });
@@ -102,6 +158,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
         $scope.getStartTypeList();
         $scope.startTypeListAlert = null;
         $scope.startTypeCrudAlert = null;
+        uploader.queue = [];
       };
 
       function showError(error) {

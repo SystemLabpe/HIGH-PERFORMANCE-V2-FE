@@ -4,6 +4,12 @@ define(['bootstrap','bootstrapUI',
   'auth/controllers/loginController','auth/controllers/logoutController',
   'admin/admin','admin/controllers/homeController', 'admin/controllers/clubController',
   'admin/controllers/fieldAreaController','admin/controllers/startTypeController',
+  'admin/controllers/initialPenetrationController','admin/controllers/playerPositionController',
+  'admin/controllers/fieldZoneController','admin/controllers/invationLevelController',
+  'admin/controllers/numericalBalanceController','admin/controllers/possessionPassesController',
+  'admin/controllers/penetratingPassesController','admin/controllers/progressionTypeController',
+  'admin/controllers/pentagonCompletionController','admin/controllers/previousActionController',
+  'admin/controllers/completionActionController','admin/controllers/stoppedBallController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -106,6 +112,115 @@ define(['bootstrap','bootstrapUI',
           }]
         }
       })
+      .when('/admin/initial-penetration', {
+        templateUrl : 'modules/admin/views/crud-initial-penetration.tpl.html',
+        controller  : 'admin.initialPenetrationController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/player-position', {
+        templateUrl : 'modules/admin/views/crud-player-position.tpl.html',
+        controller  : 'admin.playerPositionController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/field-zone', {
+        templateUrl : 'modules/admin/views/crud-field-zone.tpl.html',
+        controller  : 'admin.fieldZoneController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/invation-level', {
+        templateUrl : 'modules/admin/views/crud-invation-level.tpl.html',
+        controller  : 'admin.invationLevelController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/numerical-balance', {
+        templateUrl : 'modules/admin/views/crud-numerical-balance.tpl.html',
+        controller  : 'admin.numericalBalanceController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/possession-passes', {
+        templateUrl : 'modules/admin/views/crud-possession-passes.tpl.html',
+        controller  : 'admin.possessionPassesController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/penetrating-passes', {
+        templateUrl : 'modules/admin/views/crud-penetrating-passes.tpl.html',
+        controller  : 'admin.penetratingPassesController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/progression-type', {
+        templateUrl : 'modules/admin/views/crud-progression-type.tpl.html',
+        controller  : 'admin.progressionTypeController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/pentagon-completion', {
+        templateUrl : 'modules/admin/views/crud-pentagon-completion.tpl.html',
+        controller  : 'admin.pentagonCompletionController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/previous-action', {
+        templateUrl : 'modules/admin/views/crud-previous-action.tpl.html',
+        controller  : 'admin.previousActionController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/completion-action', {
+        templateUrl : 'modules/admin/views/crud-completion-action.tpl.html',
+        controller  : 'admin.completionActionController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+      .when('/admin/stopped-ball', {
+        templateUrl : 'modules/admin/views/crud-stopped-ball.tpl.html',
+        controller  : 'admin.stoppedBallController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+          }]
+        }
+      })
+
 
 
 
