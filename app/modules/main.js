@@ -7,7 +7,8 @@ require.config({
     bootstrap       : '../lib/bootstrap/dist/js/bootstrap',
     bootstrapUI     : '../lib/angular-bootstrap/ui-bootstrap-tpls',
     jquery          : '../lib/jquery/dist/jquery',
-    angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min'
+    angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min',
+    moment          : '../lib/moment/moment'
   },
   shim:  {
     angular: {
@@ -36,6 +37,11 @@ require.config({
     },
     app:  {
       deps  : ['angular']
+    }
+  },
+  config: {
+    moment: {
+      noGlobal: true
     }
   },
   urlArgs: 'bust=' + (new Date()).getTime(),

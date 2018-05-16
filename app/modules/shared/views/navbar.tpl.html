@@ -28,29 +28,43 @@
   <nav class="navbar navbar-default cart">
     <div class="container">
 
-     <!-- Start Atribute Navigation -->
-     <div class="attr-nav shoping-cart-box">
-        <a href="/logout" class="dropdown-toggle" ng-click="collapse()">
-          <i class="fa fa-sign-out"></i>
-        </a>
-        <div class="shop-cart">
-          <span class="cart-price">{{navRole}}</span>
-          <p>{{navUsername}}</p>
-        </div>
-    </div>
+      <!-- Start Atribute Navigation -->
+      <div class="attr-nav shoping-cart-box">
+      <a href="/logout" class="dropdown-toggle" ng-click="collapse()">
+        <i class="fa fa-sign-out"></i>
+      </a>
+      <div class="shop-cart">
+        <span class="cart-price">{{navRole}}</span>
+        <p>{{navUsername}}</p>
+      </div>
+      </div>
     <!-- End Atribute Navigation -->
 
-    <!-- Start Header Navigation -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed top-m-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><img src="img/logo.png" class="logo" alt=""></a>
+      <!-- Start Header Navigation -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed top-m-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="img/logo.png" class="logo" alt=""></a>
+      </div>
+      <!-- End Header Navigation -->
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse top-nav" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/club/tournament">Torneos</a></li>
+              <li><a href="/club/rival">Rivales</a></li>
+              <li><a href="/club/player">Jugadores</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- End Header Navigation -->
-  </div>
-</nav>
+  </nav>
 </div>

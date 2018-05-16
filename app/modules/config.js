@@ -33,7 +33,7 @@ define([],function(){
           }
         ]
       },
-      CLIENT: {
+      CLUB: {
         ID: 1,
         NAME: "Club",
         PATH: "/club",

@@ -6,7 +6,7 @@ define(['auth/auth'], function(auth) {
       if (!angular.isUndefined(input)) {
         var roleFilter = {
           2: 'ADMIN',
-          1: 'CLIENT'
+          1: 'CLUB'
         };
         return roleFilter[input];
       } else {

@@ -11,12 +11,15 @@ define(['bootstrap','bootstrapUI',
   'admin/controllers/pentagonCompletionController','admin/controllers/previousActionController',
   'admin/controllers/completionActionController','admin/controllers/stoppedBallController',
 
+  'club/club','club/controllers/homeController','club/controllers/matchController',
+  'club/controllers/tournamentController',
+
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
   'angularRoute','config'],function(){
   'use strict';
 
-  var app = angular.module('app',['ui.bootstrap','ngRoute','config','shared','auth','admin','doctor']);
+  var app = angular.module('app',['ui.bootstrap','ngRoute','config','shared','auth','admin','club']);
 
   app.config(['$locationProvider','$routeProvider','ROLE',
     function($locationProvider,$routeProvider,ROLE){
@@ -220,49 +223,30 @@ define(['bootstrap','bootstrapUI',
           }]
         }
       })
-
-
-
-
-      .when('/admin/mantenimiento', {
-        templateUrl : 'modules/admin/views/maintenance.tpl.html',
+      .when('/club', {
+        templateUrl : 'modules/club/views/home.tpl.html',
+        controller  : 'club.homeController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
           }]
         }
       })
-      .when('/admin/mantenimiento/doctor', {
-        templateUrl : 'modules/admin/views/crud-doctor.tpl.html',
+      .when('/club/match', {
+        templateUrl : 'modules/club/views/match.tpl.html',
+        controller  : 'club.matchController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
           }]
         }
       })
-      .when('/admin/mantenimiento/rol', {
-        templateUrl : 'modules/admin/views/crud-role.tpl.html',
-        controller  : 'admin.roleController',
+      .when('/club/tournament', {
+        templateUrl : 'modules/club/views/tournament.tpl.html',
+        controller  : 'club.tournamentController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
-          }]
-        }
-      })
-      .when('/admin/reportes', {
-        templateUrl : 'modules/admin/views/reports.tpl.html',
-        resolve     : {
-          loginRolRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRolRequired(ROLE.ADMIN.ID);
-          }]
-        }
-      })
-      .when('/doctor', {
-        templateUrl : 'modules/doctor/views/home.tpl.html',
-        controller  : 'doctor.homeController',
-        resolve     : {
-          loginRolRequired: ['auth.authFactory',function (authFactory) {
-            return authFactory.loginRolRequired(ROLE.DOCTOR.ID);
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
           }]
         }
       })
