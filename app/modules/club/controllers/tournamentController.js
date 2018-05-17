@@ -6,6 +6,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.subOption = 1; // 1: list, 2:add, 3:edit
       $scope.tournamentList = [];
+      $scope.rivalList = [];
       $scope.tournament = {};
       $scope.crudOption = '';
 
@@ -31,7 +32,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.getTournamentList = function() {
         $scope.tournamentListLoading = true;
         $scope.tournamentList = [];
-        authFactory.get({entity:'tournaments'}).then(function(result) {
+        authFactory.get({entity:'tournaments',method:'me'}).then(function(result) {
           $scope.tournamentList = result.data;
           $scope.tournamentListLoading = false;
         }, function (error) {
@@ -42,9 +43,26 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.getTournamentList();
 
+      $scope.getRivalList = function() {
+        $scope.rivalList = [];
+        // authFactory.get({entity:'rivals',method:'me'}).then(function(result) {
+        //   $scope.tournamentList = result.data;
+        //   $scope.tournamentListLoading = false;
+        // }, function (error) {
+        //   $scope.tournamentList = [];
+        //   $scope.tournamentListLoading = false;
+        // });
+        $scope.rivalList = [
+          {id:1,name:'rival 1'}, {id:2,name:'rival 2'}, {id:3,name:'rival 4'}, {id:4,name:'rival 5'}
+        ];
+      };
+
+      $scope.getRivalList();
+
       $scope.goAddTournament = function() {
         $scope.subOption = 2;
         $scope.tournament = {};
+        $scope.tournament.rivals = [];
         $scope.crudOption = 'Agregar';
         $scope.tournamentListAlert = null;
         $scope.tournamentCrudAlert = null;
@@ -58,6 +76,22 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
         $scope.crudOption = 'Editar';
         $scope.tournamentListAlert = null;
         $scope.tournamentCrudAlert = null;
+      };
+
+      $scope.addRival = function(rival) {
+        var hasAdded = false;
+        angular.forEach($scope.tournament.rivals,function(rivalSelected,key) {
+          if(rivalSelected.id === rival.id) {
+            hasAdded = true;
+          }
+        });
+        if(!hasAdded) {
+          $scope.tournament.rivals.push(rival);
+        }
+      };
+
+      $scope.removeRivalSelected = function(index) {
+        $scope.tournament.rivals.splice(index,1);
       };
 
       $scope.goRemoveTournament = function(tournament) {

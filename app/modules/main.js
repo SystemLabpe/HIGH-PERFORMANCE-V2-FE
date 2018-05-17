@@ -8,6 +8,7 @@ require.config({
     bootstrapUI     : '../lib/angular-bootstrap/ui-bootstrap-tpls',
     jquery          : '../lib/jquery/dist/jquery',
     angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min',
+    angularUISelect : '../lib/angular-ui-select/dist/select',
     moment          : '../lib/moment/moment'
   },
   shim:  {
@@ -24,6 +25,9 @@ require.config({
       deps  : ['angular']
     },
     angularFileUpload: {
+      deps  : ['angular']
+    },
+    angularUISelect: {
       deps  : ['angular']
     },
     jquery: {

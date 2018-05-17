@@ -1,4 +1,4 @@
-<section id="admin-crud-field-zone">
+<section id="club-crud-tournament">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -82,6 +82,42 @@
                       </p>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="admin-name" class="col-md-2 control-label">Rival</label>
+                <div class="col-md-10">
+                  <ui-select ng-model="rivalAddSelected.selected" on-select="addRival(rivalAddSelected.selected)">
+                    <ui-select-match>
+                      <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="rivalItem in (rivalList | filter: $select.search) track by rivalItem.id">
+                      <span ng-bind="rivalItem.name"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+
+              <div class="form-group" ng-show="tournament.rivals.length > 0">
+                <div class="col-md-8 col-md-offset-2">
+                  <table class="table crud-table add-rival-table">
+                    <thead>
+                      <tr>
+                        <th colspan="3" class="text-center">Nombre</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="rivalSelected in tournament.rivals track by $index">
+                        <td><img src="img/club_1.png"></td>
+                        <td>{{rivalSelected.name}}</td>
+                        <td class="crud-options">
+                          <button type="button" class="btn btn-danger" ng-click="removeRivalSelected($index)">
+                            <i class="fa fa fa-trash-o"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
 

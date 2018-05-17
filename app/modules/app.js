@@ -12,7 +12,7 @@ define(['bootstrap','bootstrapUI',
   'admin/controllers/completionActionController','admin/controllers/stoppedBallController',
 
   'club/club','club/controllers/homeController','club/controllers/matchController',
-  'club/controllers/tournamentController',
+  'club/controllers/tournamentController','club/controllers/rivalController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -244,6 +244,15 @@ define(['bootstrap','bootstrapUI',
       .when('/club/tournament', {
         templateUrl : 'modules/club/views/tournament.tpl.html',
         controller  : 'club.tournamentController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/club/rival', {
+        templateUrl : 'modules/club/views/rival.tpl.html',
+        controller  : 'club.rivalController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
             return authFactory.loginRolRequired(ROLE.CLUB.ID);

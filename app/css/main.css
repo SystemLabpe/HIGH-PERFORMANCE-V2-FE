@@ -83,6 +83,28 @@ h2 {
   padding: 10px 14px;
 }
 
+.ui-select-toggle {
+  background-color: #ffffff;
+}
+
+.ui-select-search {
+  width: 100% !important;
+}
+
+.ui-select-toggle:hover,
+.ui-select-toggle:focus {
+  background-color: #ffffff;
+  color: #34495e;
+}
+
+.ui-select-match-text {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
 .modal-content .btn-success {
   padding: 15px;
   background-color: #fec722;
@@ -795,4 +817,35 @@ form button.btn-yellow {
 
 .fix-res-sp {
   font-size: 25px!important;
+}
+
+/* ==================================================
+   Club - Tournament
+================================================== */
+#club-crud-tournament {
+
+}
+
+#club-crud-tournament .container {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#club-crud-tournament .add-rival-table img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #c4c4c4;
+}
+
+
+/* ==================================================
+   Club - Rival
+================================================== */
+#club-crud-rival {
+
+}
+
+#club-crud-rival .container {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
