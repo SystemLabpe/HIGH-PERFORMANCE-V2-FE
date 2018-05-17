@@ -4,15 +4,15 @@
       <div class="col-md-8 col-md-offset-2">
         <h2>Equipos Rivales</h2>
         <div class="input-group stylish-input-group">
-          <input type="text" class="form-control"  placeholder="Buscar equipo" >
+          <input type="text" class="form-control"  placeholder="Buscar equipo" ng-model="searchRival">
           <span class="input-group-addon">
-            <button type="submit">
+            <button type="submit" class="btn-search">
               <span class="glyphicon glyphicon-search"></span>
             </button>
           </span>
         </div>
         <ul class="club-list">
-          <li class="club-item" ng-repeat="rival in rivalList track by rival.id">
+          <li class="club-item" ng-repeat="rival in rivalList | filter:searchRival track by rival.id">
             <div class="club-items" ng-click="goClub(club)">
               <div class="club-logo">
                 <img ng-src="{{rival.picture}}" width="21" height="28" alt="">

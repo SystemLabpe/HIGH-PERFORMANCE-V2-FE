@@ -1,0 +1,137 @@
+<section id="club-crud-tournament">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+
+        <div ng-show="subOption === 1">
+          <h2>Torneos</h2>
+          <uib-alert type="{{tournamentAlert.type}}" close="cleanAlerttournament()" ng-show="tournamentAlert">{{tournamentAlert.text}}</uib-alert>
+          <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="tournamentLoading"></ng-include>
+          <table class="table crud-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Inicio</th>
+                <th>Final</th>
+                <th class="crud-option-add">
+                  <button type="button" class="btn btn-info btn-add" ng-click="goAddTournament()">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="tournament in tournamentList track by tournament.id">
+              <tr>
+                <td>{{tournament.name}}</td>
+                <td>{{tournament.date_init | date:'dd-MM-yyyy'}}</td>
+                <td>{{tournament.date_end | date:'dd-MM-yyyy'}}</td>
+                <td class="crud-options">
+                  <button type="button" class="btn btn-warning" ng-click="goEditTournament(tournament)">
+                    <i class="fa fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" ng-click="goRemoveTournament(tournament)">
+                    <i class="fa fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div ng-show="subOption === 2 || subOption === 3">
+          <div class="crud-header">
+            <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
+            <h2>{{crudOption}} Torneo</h2>
+            <uib-alert type="{{tournamentCrudAlert.type}}" close="cleanAlertTournamentCrud()" ng-show="tournamentCrudAlert">{{tournamentCrudAlert.text}}</uib-alert>
+            <form class="form-horizontal" ng-submit="tournamentSubmit()">
+              <div class="form-group">
+                <label for="admin-name" class="col-md-2 control-label">Nombre</label>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="admin-name" placeholder="Nombre" ng-model="tournament.name" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="admin-email" class="col-md-4 control-label">Inicio</label>
+                    <div class="col-md-8">
+                      <p class="input-group input-date">
+                        <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" id="date-init"
+                            ng-model="tournament.date_init" datepicker-options="datePickerOptions" is-open="tournamentIDateOpened" show-button-bar="false" placeholder="DD-MM-YYYY" required/>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default btn-calendar-picker" ng-click="openDp($event,'date_init')">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="admin-email" class="col-md-4 control-label">Final</label>
+                    <div class="col-md-8">
+                      <p class="input-group input-date">
+                        <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" id="date-init"
+                            ng-model="tournament.date_end" datepicker-options="datePickerOptions" is-open="tournamentEDateOpened" show-button-bar="false" placeholder="DD-MM-YYYY" required/>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default btn-calendar-picker" ng-click="openDp($event,'date_end')">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="rival-name" class="col-md-2 control-label">Rival</label>
+                <div class="col-md-10">
+                  <ui-select ng-model="rivalAddSelected.selected" on-select="addRival(rivalAddSelected.selected)">
+                    <ui-select-match>
+                      <span ng-bind="$select.selected.full_name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="rivalItem in (rivalList | filter: $select.search) track by rivalItem.id">
+                      <span ng-bind="rivalItem.full_name"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+
+              <div class="form-group" ng-show="tournament.clubs.length > 0">
+                <div class="col-md-10 col-md-offset-2">
+                  <table class="table crud-table add-rival-table">
+                    <thead>
+                      <tr>
+                        <th colspan="3" class="text-center">Nombre</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="rivalSelected in tournament.clubs track by $index">
+                        <td><img ng-src="{{rivalSelected.picture}}"></td>
+                        <td>{{rivalSelected.full_name}}</td>
+                        <td class="crud-options">
+                          <button type="button" class="btn btn-danger" ng-click="removeRivalSelected($index)">
+                            <i class="fa fa fa-trash-o"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-12 text-center">
+                  <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="tournamentCrudLoading"></ng-include>
+                  <button type="submit" class="btn btn-yellow">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
