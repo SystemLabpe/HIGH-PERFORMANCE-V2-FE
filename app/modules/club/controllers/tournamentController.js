@@ -45,16 +45,11 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.getRivalList = function() {
         $scope.rivalList = [];
-        // authFactory.get({entity:'rivals',method:'me'}).then(function(result) {
-        //   $scope.tournamentList = result.data;
-        //   $scope.tournamentListLoading = false;
-        // }, function (error) {
-        //   $scope.tournamentList = [];
-        //   $scope.tournamentListLoading = false;
-        // });
-        $scope.rivalList = [
-          {id:1,name:'rival 1'}, {id:2,name:'rival 2'}, {id:3,name:'rival 4'}, {id:4,name:'rival 5'}
-        ];
+        authFactory.get({entity:'clubs',method:'rivals'}).then(function(result) {
+          $scope.rivalList = result.data;
+        }, function (error) {
+          $scope.rivalList = [];
+        });
       };
 
       $scope.getRivalList();
@@ -62,7 +57,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.goAddTournament = function() {
         $scope.subOption = 2;
         $scope.tournament = {};
-        $scope.tournament.rivals = [];
+        $scope.tournament.clubs = [];
         $scope.crudOption = 'Agregar';
         $scope.tournamentListAlert = null;
         $scope.tournamentCrudAlert = null;
@@ -80,18 +75,18 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.addRival = function(rival) {
         var hasAdded = false;
-        angular.forEach($scope.tournament.rivals,function(rivalSelected,key) {
+        angular.forEach($scope.tournament.clubs,function(rivalSelected,key) {
           if(rivalSelected.id === rival.id) {
             hasAdded = true;
           }
         });
         if(!hasAdded) {
-          $scope.tournament.rivals.push(rival);
+          $scope.tournament.clubs.push(rival);
         }
       };
 
       $scope.removeRivalSelected = function(index) {
-        $scope.tournament.rivals.splice(index,1);
+        $scope.tournament.clubs.splice(index,1);
       };
 
       $scope.goRemoveTournament = function(tournament) {

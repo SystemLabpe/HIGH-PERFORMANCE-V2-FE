@@ -12,7 +12,8 @@ define(['bootstrap','bootstrapUI',
   'admin/controllers/completionActionController','admin/controllers/stoppedBallController',
 
   'club/club','club/controllers/homeController','club/controllers/matchController',
-  'club/controllers/tournamentController','club/controllers/rivalController',
+  'club/controllers/tournamentController','club/controllers/rivalCrudController',
+  'club/controllers/rivalController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -241,8 +242,8 @@ define(['bootstrap','bootstrapUI',
           }]
         }
       })
-      .when('/club/tournament', {
-        templateUrl : 'modules/club/views/tournament.tpl.html',
+      .when('/club/m-tournament', {
+        templateUrl : 'modules/club/views/crud-tournament.tpl.html',
         controller  : 'club.tournamentController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
@@ -250,7 +251,16 @@ define(['bootstrap','bootstrapUI',
           }]
         }
       })
-      .when('/club/rival', {
+      .when('/club/m-rival', {
+        templateUrl : 'modules/club/views/crud-rival.tpl.html',
+        controller  : 'club.rivalCrudController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/club/rival-list', {
         templateUrl : 'modules/club/views/rival.tpl.html',
         controller  : 'club.rivalController',
         resolve     : {
