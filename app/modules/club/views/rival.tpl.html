@@ -11,6 +11,7 @@
             </button>
           </span>
         </div>
+        <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="rivalListLoading"></ng-include>
         <ul class="club-list">
           <li class="club-item" ng-repeat="rival in rivalList | filter:searchRival track by rival.id">
             <div class="club-items" ng-click="goClub(club)">

@@ -79,6 +79,28 @@ h2 {
   transition: all 0.5s;
 }
 
+.btn-black {
+  width: 100%;
+  padding: 15px;
+  color: #ffffff;
+  background-color: #24252f;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-shadow: none;
+  line-height: 1;
+  outline: none;
+  border-radius: 3px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.btn-black:hover {
+  color: #ffffff;
+}
+
 button.btn-search {
   background-color: transparent;
 }
@@ -792,6 +814,7 @@ form button.btn-yellow {
   font-weight: 700;
   color: #24252f;
   line-height: 44px;
+  display: block;
 }
 
 #club-home .last-matches .arrow-style > a,
@@ -911,4 +934,25 @@ form button.btn-yellow {
   font-size: 16px;
   top: 18px;
   color: #24252f;
+}
+
+/* ==================================================
+   Club - Match
+================================================== */
+#club-match-list {
+
+}
+
+#club-match-list .tab-content .col-title {
+  padding-right: 0;
+}
+
+#club-match-list .tab-content .col-btn {
+  padding-left: 0;
+}
+
+#club-match-list .btn-add {
+  height: 61px;
+  border-radius: 0;
+  display: inline-block;
 }

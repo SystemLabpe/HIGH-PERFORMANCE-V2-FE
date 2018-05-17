@@ -6,12 +6,17 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       $scope.rivalList = [];
 
+      $scope.rivalListLoading = false;
+
       $scope.getRivalList = function() {
+        $scope.rivalListLoading = true;
         $scope.rivalList = [];
         authFactory.get({entity:'clubs',method:'rivals'}).then(function(result) {
           $scope.rivalList = result.data;
+          $scope.rivalListLoading = false;
         }, function (error) {
           $scope.rivalList = [];
+          $scope.rivalListLoading = false;
         });
       };
 
