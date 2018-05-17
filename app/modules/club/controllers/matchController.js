@@ -22,6 +22,10 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       };
 
+      $scope.addMatch = function() {
+        $location.path('/club/match-add-edit');
+      };
+
     }
   ]);
 
