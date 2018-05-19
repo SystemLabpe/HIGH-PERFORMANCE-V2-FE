@@ -280,7 +280,7 @@ define(['bootstrap','bootstrapUI',
         }
       })
       .when('/club/match-detail', {
-        templateUrl : 'modules/club/views/match-deTAil.tpl.html',
+        templateUrl : 'modules/club/views/match-detail.tpl.html',
         controller  : 'club.matchDetailController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
