@@ -28,6 +28,13 @@ define(['shared/shared','jquery'], function(shared,$){
 
       if (storageRole) {
         selectRole(storageRole);
+        setMyClub();
+      }
+
+      function setMyClub () {
+        if (JSON.parse(localStorage.getItem('myClub'))) {
+          $scope.myClub = JSON.parse(localStorage.getItem('myClub'));
+        }
       }
 
       $scope.$on('navbar:authenticate',function (event,isAuthenticated) {
@@ -36,6 +43,10 @@ define(['shared/shared','jquery'], function(shared,$){
 
       $scope.$on('navbar:selectRole',function (event,role) {
         selectRole(role);
+      });
+
+      $scope.$on('navbar:setMyClub',function (event) {
+        setMyClub();
       });
 
       $scope.$on('navbar:unselectRole',function (event) {

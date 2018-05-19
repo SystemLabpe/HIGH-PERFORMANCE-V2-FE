@@ -23,13 +23,16 @@ define(['auth/auth', 'auth/factories/authFactory','auth/filters/roleFilter','sha
       function getUserRole() {
         authFactory.get({method:'me'}).then(function(result) {
           loaded();
-          console.log('RESULT ==> ', result);
           localStorage.setItem('username', result.name);
           var roleId = result.u_type;
           var roleName = $filter('roleFilter')(roleId);
           localStorage.setItem('currentRole',roleName);
           $scope.$emit('navbar:authenticate',true);
           $scope.$emit('navbar:selectRole',roleName);
+          if (result.club) {
+            localStorage.setItem('myClub', JSON.stringify(result.club));
+            $scope.$emit('navbar:setMyClub');
+          }
           $location.path(ROLE[roleName].PATH);
         }, function (error) {
 

@@ -80,7 +80,7 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
         $scope.cleanAlertRivalList();
         var modalData = {
           title:'Confirme eliminación',
-          message:'¿Desea eliminar el Rival ' + rival.name +' ?'
+          message:'¿Desea eliminar el Rival ' + rival.full_name +' ?'
         };
         modalFactory.showModal(modalData)
         .then(function() {

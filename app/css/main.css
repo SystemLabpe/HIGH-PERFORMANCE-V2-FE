@@ -62,6 +62,7 @@ h2 {
 }
 
 .btn-yellow {
+  color: #24252f;
   width: 100%;
   padding: 15px;
   background-color: #fec722;
@@ -163,6 +164,14 @@ button.btn-search {
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.modal-info .info-item {
+  margin-bottom:  18px;
+}
+
+.modal-info .info-item img {
+  margin: 0 auto;
 }
 
 .file-upload input.upload {
@@ -301,6 +310,13 @@ button.btn-search {
   border-radius: 5px;
   text-align: right;
   padding: 10px;
+}
+
+.fa-hp-info {
+  color: #fec722;
+  padding: 4px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* ==================================================
@@ -955,4 +971,124 @@ form button.btn-yellow {
   height: 61px;
   border-radius: 0;
   display: inline-block;
+}
+
+/* ==================================================
+   Club - Form
+================================================== */
+#club-match-form {
+
+}
+
+#club-match-form .container {
+  margin-top: 40px;
+}
+
+#club-match-form h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
+}
+
+#club-match-form h3 {
+  color: #24252f;
+  font-weight: 400;
+  margin: 20px 0 0;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #f2f2f3;
+  text-align: center;
+  position: initial !important;
+}
+
+#club-match-form .chance-title {
+  position: relative;
+}
+
+#club-match-form .chance-title .btn-add-chance {
+  background-color: #fec722;
+  border-color: #24252f;
+  padding: 6px 16px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+#club-match-form .form-chance {
+  margin-top: 20px;
+}
+
+#club-match-form .form-chance .filter-by {
+  background: none;
+  margin-top: 8px;
+}
+
+#club-match-form .form-chance .filter-by [type="checkbox"]:checked + label {
+  color: #656565;
+}
+
+#club-match-form .form-chance .fa-hp-info {
+  margin-right: 6px;
+}
+
+#timeline h2 {
+  text-align: left;
+  margin: -20px -20px 0 -20px !important;
+}
+
+#timeline .timeline-item .timeline-content h2 {
+  background: #fec722;
+}
+
+#timeline .timeline-item .timeline-content.right h2 {
+  background: #24252f;
+}
+
+#timeline .timeline-item .timeline-content p {
+  margin-top: 12px;
+}
+
+#timeline .timeline-item .timeline-content span {
+  display: block;
+  margin-top: 8px;
+}
+
+#timeline .timeline-item .timeline-content:before {
+  border-left: 7px solid #fec722;
+}
+
+#timeline .timeline-item .timeline-icon {
+  text-align: center;
+  background: #24252f;
+}
+
+#timeline .timeline-item .timeline-icon span {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 48px;
+}
+
+#timeline:before {
+  background: #24252f;
+}
+
+#timeline .timeline-item .timeline-content.right:before {
+  border-right: 7px solid #fec722;
+}
+
+
+/* ==================================================
+   Club - Match Detail
+================================================== */
+#club-match-detail {
+
+}
+
+#club-match-detail .container {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#club-match-detail h2 {
+  border-bottom: 3px solid #fec722;
+  margin-bottom: 28px;
 }

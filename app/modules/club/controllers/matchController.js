@@ -4,27 +4,35 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
   club.controller('club.matchController',['$scope','$filter','$location','$auth','auth.authFactory',
     'shared.modalFactory','shared.errorFactory', function ($scope,$filter,$location,$auth,authFactory,modalFactory,errorFactory) {
 
-      $scope.lastMatchesList = [];
+      $scope.matchList = [];
 
-      $scope.lastMatchesListLoading = false;
+      $scope.matchListLoading = false;
 
-      $scope.getLastMatchesList = function() {
-        $scope.lastMatchesListLoading = true;
-        $scope.lastMatchesList = [];
+      $scope.getMatchList = function() {
+        $scope.matchListLoading = true;
+        $scope.matchList = [];
 
-        // authFactory.get({entity:'matchs',method:'last'}).then(function(result) {
-        //   $scope.lastMatchesList = result.data;
-        //   $scope.lastMatchesListLoading = false;
-        // }, function (error) {
-        //   $scope.lastMatchesList = [];
-        //   $scope.lastMatchesListLoading = false;
-        // });
+        authFactory.get({entity:'matches',method:'me'}).then(function(result) {
+          $scope.matchList = result.data;
+          $scope.matchListLoading = false;
+        }, function (error) {
+          $scope.matchList = [];
+          $scope.matchListLoading = false;
+        });
+      };
 
+      $scope.getMatchList();
+
+      $scope.goMatchDetail = function(match) {
+        sessionStorage.setItem('match',JSON.stringify(match));
+        $location.path('/club/match-detail');
       };
 
       $scope.addMatch = function() {
         $location.path('/club/match-add-edit');
       };
+
+      sessionStorage.removeItem('match');
 
     }
   ]);

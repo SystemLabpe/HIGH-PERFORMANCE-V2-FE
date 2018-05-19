@@ -13,7 +13,8 @@ define(['bootstrap','bootstrapUI',
 
   'club/club','club/controllers/homeController','club/controllers/matchController',
   'club/controllers/tournamentController','club/controllers/rivalCrudController',
-  'club/controllers/rivalController',
+  'club/controllers/rivalController','club/controllers/matchAddEditController',
+  'club/controllers/timelineController','club/controllers/matchDetailController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -269,6 +270,35 @@ define(['bootstrap','bootstrapUI',
           }]
         }
       })
+      .when('/club/match-add-edit', {
+        templateUrl : 'modules/club/views/match-form.tpl.html',
+        controller  : 'club.matchAddEditController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/club/match-detail', {
+        templateUrl : 'modules/club/views/match-deTAil.tpl.html',
+        controller  : 'club.matchDetailController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/timeline', {
+        templateUrl : 'modules/club/views/timeline_2.tpl.html',
+        controller  : 'club.timelineController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+
+
       .otherwise({ redirectTo : '/'});
     }]);
 

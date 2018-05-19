@@ -1,39 +1,40 @@
 <section id="club-home">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-
+      <div class="col-md-7">
+        <a href="/club/match-detail" class="btn btn-yellow">DETALLE DE PARTIDO</a>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div class="sidebar last-matches">
           <div class="widget">
             <div class="widget-title">
               <h3>Últimos partidos</h3>
             </div>
             <div class="widget-container">
-              <div class="item">
+              <div class="item" ng-repeat="match in lastMatchesList track by $index" ng-click="goMatchDetail(match)">
                 <div class="recent-items">
                   <a href="#">
-                    <h4>06 Aug, 2016</h4>
+                    <h4>{{match.match_date | date:'dd-MM-yyyy'}}</h4>
                     <div class="result-coutry-area">
                       <div class="result-item">
-                        <p>Portogal</p>
-                        <img src="img/club_1.png" alt="" />
+                        <p>{{match.home_club.full_name}}</p>
+                        <img ng-src="{{match.home_club.picture}}" alt="" />
                       </div>
                       <div class="result-item">
-                        <p>1-0</p>
+                        <p>{{match.home_score}}-{{match.away_score}}</p>
                       </div>
                       <div class="result-item">
-                       <img src="img/club_2.png" alt="" />
-                       <p>France</p>
+                       <img ng-src="{{match.away_club.picture}}" alt="" />
+                       <p>{{match.away_club.full_name}}</p>
                       </div>
                     </div>
                   </a>
                 </div>
+              </div>
+
                 <div class="see-all">
                   <a href="/club/match">Ver todo</a>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -45,19 +46,13 @@
             </div>
             <div class="widget-container">
               <div class="item">
-                <div class="club-items">
+                <div class="club-items" ng-repeat="rival in rivalList track by rival.id">
                   <!-- <a href=""> -->
                     <div class="club-logo">
-                      <img src="img/club_1.png" width="21" height="28" alt="">
+                      <img ng-src="{{rival.picture}}" width="21" height="28" alt="">
                     </div>
-                    <p>Legacy</p>
+                    <p>{{rival.full_name}}</p>
                   <!-- </a> -->
-                </div>
-                <div class="club-items">
-                  <div class="club-logo">
-                    <img src="img/club_1.png" width="21" height="28" alt="">
-                  </div>
-                  <p>Legacy</p>
                 </div>
                 <div class="see-all">
                   <a href="/club/rival-list">Ver todo</a>

@@ -113,6 +113,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
           name: $scope.tournament.name,
           date_init: moment($scope.tournament.date_init).format('YYYY-MM-DD'),
           date_end: moment($scope.tournament.date_end).format('YYYY-MM-DD'),
+          clubs: $scope.tournament.clubs
         };
         $scope.tournament.name;
 
@@ -125,12 +126,13 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       function addTournament(request) {
         $scope.tournamentCrudLoading = true;
-        authFactory.save({entity:'tournament'}, request).then(function(result) {
+        authFactory.save({entity:'tournament', method:'me'}, request).then(function(result) {
           $scope.tournamentCrudLoading = false;
           $scope.tournament = {};
           $scope.subOption = 1;
           $scope.tournamentListAlert = errorFactory.getCustomAlert('success','Zona de campo agregada satisfactoriamente');
           $scope.getTournamentList();
+          $scope.rivalAddSelected = {};
         }, function (error) {
           showError(error);
         });
@@ -138,12 +140,13 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       function editTournament(request) {
         $scope.tournamentCrudLoading = true;
-        authFactory.edit({entity:'tournament',id:$scope.tournament.id}, request).then(function(result) {
+        authFactory.edit({entity:'tournament', method:'me',id:$scope.tournament.id}, request).then(function(result) {
           $scope.tournamentCrudLoading = false;
           $scope.tournament = {};
           $scope.subOption = 1;
           $scope.tournamentListAlert = errorFactory.getCustomAlert('success','Zona de campo editada satisfactoriamente');
           $scope.getTournamentList();
+          $scope.rivalAddSelected = {};
         }, function (error) {
           showError(error);
         });
@@ -152,8 +155,10 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.goBack = function() {
         $scope.subOption = 1;
         $scope.getTournamentList();
+        $scope.tournament = {};
         $scope.tournamentListAlert = null;
         $scope.tournamentCrudAlert = null;
+        $scope.rivalAddSelected = {};
       };
 
       function showError(error) {

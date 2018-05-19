@@ -1,4 +1,4 @@
-define(['shared/shared','shared/controllers/modalController'],function(shared){
+define(['shared/shared','shared/controllers/modalController','shared/controllers/infoListModalController'],function(shared){
   'use strict';
 
   shared.factory('shared.modalFactory',['$uibModal', function ($uibModal) {
@@ -12,6 +12,20 @@ define(['shared/shared','shared/controllers/modalController'],function(shared){
         resolve    : {
           modalData : function () {
             return modalData;
+          }
+        }
+      };
+
+      return $uibModal.open(settings).result;
+    };
+
+    modalFactory.showInfoListModalFactory = function(infoList) {
+      var settings = {
+        templateUrl: 'modules/shared/views/info-list-modal.tpl.html',
+        controller : 'shared.infoListModalController',
+        resolve    : {
+          infoList : function () {
+            return infoList;
           }
         }
       };
