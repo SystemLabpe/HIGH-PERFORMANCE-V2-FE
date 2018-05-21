@@ -14,6 +14,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.tournamentListLoading = false;
       $scope.tournamentCrudAlert = null;
       $scope.tournamentCrudLoading = false;
+      $scope.rivalAddSelected = {};
 
       $scope.datePickerOptions = {showWeeks:false};
       $scope.tournamentIDateOpened = false;
