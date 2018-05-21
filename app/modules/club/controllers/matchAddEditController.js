@@ -94,20 +94,37 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.getRivalList();
 
       $scope.matchSubmit = function() {
-        var request = {
-          match_date: moment($scope.match.match_date).format('YYYY-MM-DD'),
-          home_score: $scope.match.home_score,
-          away_score: $scope.match.away_score,
-          tournament_id: $scope.match.tournament_id,
-          home_club_id: $scope.match.home_club_id,
-          away_club_id: $scope.match.away_club_id
-        };
-        if (!$scope.match.id) {
-          addMatch(request);
-        } else {
-          editMatch(request);
+        $scope.matchFormAlert = null;
+        if (validateMatch()) {
+          var request = {
+            match_date: moment($scope.match.match_date).format('YYYY-MM-DD'),
+            home_score: $scope.match.home_score,
+            away_score: $scope.match.away_score,
+            tournament_id: $scope.match.tournament_id,
+            home_club_id: $scope.match.home_club_id,
+            away_club_id: $scope.match.away_club_id
+          };
+          if (!$scope.match.id) {
+            addMatch(request);
+          } else {
+            editMatch(request);
+          }
         }
       };
+
+      function validateMatch() {
+        if (!$scope.match.tournament_id) {
+          $scope.matchFormAlert = errorFactory.getCustomAlert('danger','Debe seleccionar Torneo');
+          return false;
+        } else if (!$scope.match.home_club_id || !$scope.match.away_club_id) {
+          $scope.matchFormAlert = errorFactory.getCustomAlert('danger','Debe seleccionar equipo Local y Visitante');
+          return false;
+        } else if ($scope.match.home_club_id === $scope.match.away_club_id) {
+          $scope.matchFormAlert = errorFactory.getCustomAlert('danger','Los equipos Local y Visitante deben ser distintos');
+          return false;
+        }
+        return true;
+      }
 
       function addMatch(request) {
         $scope.matchFormLoading = true;
@@ -152,7 +169,6 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       };
 
       $scope.chanceSubmit = function() {
-        console.log('CHANCE ==> ', $scope.chance);
         $scope.chance.match_id = $scope.match.id;
         if (!$scope.chance.is_goal) {
           $scope.chance.is_goal = 0;
@@ -204,27 +220,8 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       $scope.goBack = function() {
         $scope.subOption = 1;
         $scope.chance = {};
-        // clearChangeInfo();
+        $scope.matchFormAlert = null;
       };
-
-      // function clearChangeInfo() {
-      //   $scope.stoppedBall = {};
-      //   $scope.startType = {};
-      //   $scope.fieldZone = {};
-      //   $scope.initialPenetration = {};
-      //   $scope.playerPosition = {};
-      //   $scope.fieldArea = {};
-      //   $scope.invationLevel = {};
-      //   $scope.numericalBalance = {};
-      //   $scope.possessionPasses = {};
-      //   $scope.penetratingPasses = {};
-      //   $scope.progressionType = {};
-      //   $scope.pentagonCompletion = {};
-      //   $scope.previousAction = {};
-      //   $scope.completionAction = {};
-      //   $scope.penultimateFieldZone = {};
-      //   $scope.ultimateFieldZone = {};
-      // }
 
       $scope.showInfo = function(info) {
         modalFactory.showInfoListModalFactory(info);
