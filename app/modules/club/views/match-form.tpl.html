@@ -4,7 +4,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="crud-header">
           <h2>{{crudMatchOption}} Partido</h2>
-          <uib-alert type="{{matchFormAlert.type}}" close="cleanAlertMatchForm()" ng-show="matchFormAlert">{{matchFormAlert.text}}</uib-alert>
+          <uib-alert type="{{matchFormAlert.type}}" close="cleanAlert()" ng-show="matchFormAlert">{{matchFormAlert.text}}</uib-alert>
         </div>
         <form class="form-horizontal" ng-submit="matchSubmit()">
           <div class="form-group">
@@ -88,7 +88,8 @@
               <i class="fa fa-plus"></i>
             </button>
           </div>
-          <uib-alert type="{{chanceListAlert.type}}" close="cleanAlertChanceForm()" ng-show="chanceListAlert">{{chanceListAlert.text}}</uib-alert>
+          <br>
+          <uib-alert type="{{chanceListAlert.type}}" close="cleanAlert()" ng-show="chanceListAlert">{{chanceListAlert.text}}</uib-alert>
           <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="chanceListLoading"></ng-include>
           <div id=timeline class="chance-timeline">
             <div class="demo-card-wrapper">
@@ -98,15 +99,23 @@
                   <span>{{chance.chance_minute}}'</span>
                 </div>
                 <div class="timeline-content" ng-class="{'right':chance.is_home == 0}">
-                  <h2 ng-if="chance.is_goal === 1">Gol</h2>
-                  <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 1">Jugada</h2>
-                  <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 2">Balón parado: {{chance.stopped_ball.name}}</h2>
+                  <h2 ng-if="chance.is_goal === 1">Gol <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
+                  <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 1">Jugada <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
+                  <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 2">Balón parado: {{chance.stopped_ball.name}} <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
                   <p>
-                    <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player}}</span>
-                    <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player}}</span>
+                    <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player || '--'}}</span>
+                    <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player || '--'}}</span>
                     <span ng-if="chance.chance_type == 1"><strong>Jugada</strong></span>
                     <span ng-if="chance.chance_type == 2"><strong>Balón parado:</strong> {{chance.stopped_ball.name}}</span>
                   </p>
+                  <div class="row row-chance-edit">
+                    <div class="col-md-12 text-right">
+                    <button class="btn-chance-edit" ng-click="goEditChance(chance)">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                  </div>
+                  </div>
+
                 </div>
               </div>
 
@@ -119,7 +128,7 @@
             <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
             <h3>{{crudChanceOption}} Ocasión de Gol</h3>
           </div>
-          <uib-alert type="{{chanceFormAlert.type}}" close="cleanAlertChanceForm()" ng-show="chanceFormAlert">{{chanceFormAlert.text}}</uib-alert>
+          <uib-alert type="{{chanceFormAlert.type}}" close="cleanAlert()" ng-show="chanceFormAlert">{{chanceFormAlert.text}}</uib-alert>
           <form class="form-horizontal form-chance" ng-submit="chanceSubmit()">
             <div class="form-group">
               <div class="col-md-6 filter-by">
@@ -187,227 +196,373 @@
               </div>
             </div>
             <div ng-show="chance.chance_type == 1">
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(startTypeList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Tipo de Inicio
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.start_type_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="startType.id as startType in (startTypeList | filter: $select.search) track by startType.id">
-                      <span ng-bind="startType.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+              <div class="form-group-match">
+                <div class="title-area">
+                  <h4>Inicio de la Posesión</h4>
                 </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Zona del Campo
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.field_zone_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="fieldZone.id as fieldZone in (fieldZoneList | filter: $select.search) track by fieldZone.id">
-                      <span ng-bind="fieldZone.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(initialPenetrationList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Penetración Incial
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.initial_penetration_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="initialPenetration.id as initialPenetration in (initialPenetrationList | filter: $select.search) track by initialPenetration.id">
-                      <span ng-bind="initialPenetration.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(playerPositionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Posición de Jugador
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.player_position_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="playerPosition.id as playerPosition in (playerPositionList | filter: $select.search) track by playerPosition.id">
-                      <span ng-bind="playerPosition.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(fieldAreaList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Posición de Rival
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.field_area_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="fieldArea.id as fieldArea in (fieldAreaList | filter: $select.search) track by fieldArea.id">
-                      <span ng-bind="fieldArea.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(invationLevelList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Nivel de Invasión
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.invation_level_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="invationLevel.id as invationLevel in (invationLevelList | filter: $select.search) track by invationLevel.id">
-                      <span ng-bind="invationLevel.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+                <div class="content-area">
+                  <div class="row">
+                    <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">
+                          <span ng-click="showInfo(startTypeList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Tipo de Inicio
+                        </label>
+                        <div class="col-md-3">
+                          <ui-select ng-model="chance.start_type_id">
+                            <ui-select-match>
+                              <span ng-bind="$select.selected.name"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="startType.id as startType in (startTypeList | filter: $select.search) track by startType.id">
+                              <span ng-bind="startType.name"></span>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                        <label class="col-md-3 control-label">
+                          <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Zona del Campo
+                        </label>
+                        <div class="col-md-3">
+                          <ui-select ng-model="chance.field_zone_id">
+                            <ui-select-match>
+                              <span ng-bind="$select.selected.name"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="fieldZone.id as fieldZone in (fieldZoneList | filter: $select.search) track by fieldZone.id">
+                              <span ng-bind="fieldZone.name"></span>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">
+                          <span ng-click="showInfo(initialPenetrationList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Penetración Incial
+                        </label>
+                        <div class="col-md-3">
+                          <ui-select ng-model="chance.initial_penetration_id">
+                            <ui-select-match>
+                              <span ng-bind="$select.selected.name"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="initialPenetration.id as initialPenetration in (initialPenetrationList | filter: $select.search) track by initialPenetration.id">
+                              <span ng-bind="initialPenetration.name"></span>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                        <label class="col-md-3 control-label">
+                          <span ng-click="showInfo(playerPositionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Posición de Jugador
+                        </label>
+                        <div class="col-md-3">
+                          <ui-select ng-model="chance.player_position_id">
+                            <ui-select-match>
+                              <span ng-bind="$select.selected.name"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="playerPosition.id as playerPosition in (playerPositionList | filter: $select.search) track by playerPosition.id">
+                              <span ng-bind="playerPosition.name"></span>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(numericalBalanceList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Balance Numérico
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.numerical_balance_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="numericalBalance.id as numericalBalance in (numericalBalanceList | filter: $select.search) track by numericalBalance.id">
-                      <span ng-bind="numericalBalance.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+              <div class="form-group-match">
+                <div class="title-area">
+                  <h4>Situación Inicial del Rival</h4>
                 </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(possessionPassesList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pases por Posesión
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.possession_passes_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="possessionPasses.id as possessionPasses in (possessionPassesList | filter: $select.search) track by possessionPasses.id">
-                      <span ng-bind="possessionPasses.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+                <div class="content-area">
+                  <div class="row">
+                  <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(fieldAreaList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Posición de Rival
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.field_area_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="fieldArea.id as fieldArea in (fieldAreaList | filter: $select.search) track by fieldArea.id">
+                            <span ng-bind="fieldArea.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(invationLevelList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Nivel de Invasión
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.invation_level_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="invationLevel.id as invationLevel in (invationLevelList | filter: $select.search) track by invationLevel.id">
+                            <span ng-bind="invationLevel.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(numericalBalanceList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Balance Numérico
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.numerical_balance_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="numericalBalance.id as numericalBalance in (numericalBalanceList | filter: $select.search) track by numericalBalance.id">
+                            <span ng-bind="numericalBalance.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(penetratingPassesList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pases Penetrantes
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.penetrating_passes_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="penetratingPasses.id as penetratingPasses in (penetratingPassesList | filter: $select.search) track by penetratingPasses.id">
-                      <span ng-bind="penetratingPasses.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(progressionTypeList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Tipo de Progresión
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.progression_type_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="progressionType.id as progressionType in (progressionTypeList | filter: $select.search) track by progressionType.id">
-                      <span ng-bind="progressionType.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(pentagonCompletionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pentágono de Finalización
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.pentagon_completion_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="pentagonCompletion.id as pentagonCompletion in (pentagonCompletionList | filter: $select.search) track by pentagonCompletion.id">
-                      <span ng-bind="pentagonCompletion.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(previousActionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Acción Previa
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.previous_action_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="previousAction.id as previousAction in (previousActionList | filter: $select.search) track by previousAction.id">
-                      <span ng-bind="previousAction.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(completionActionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Finalización de la Jugada
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.completion_action_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="completionAction.id as completionAction in (completionActionList | filter: $select.search) track by completionAction.id">
-                      <span ng-bind="completionAction.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+              <div class="form-group-match">
+                <div class="title-area">
+                  <h4>Desarrollo de la Posesión</h4>
                 </div>
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Penúltimo Sub-espacio Rival
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.penultimate_field_zone">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="penultimateFieldZone.id as penultimateFieldZone in (fieldZoneList | filter: $select.search) track by penultimateFieldZone.id">
-                      <span ng-bind="penultimateFieldZone.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+                <div class="content-area">
+                  <div class="row">
+                  <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(possessionPassesList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pases por Posesión
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.possession_passes_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="possessionPasses.id as possessionPasses in (possessionPassesList | filter: $select.search) track by possessionPasses.id">
+                            <span ng-bind="possessionPasses.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(penetratingPassesList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pases Penetrantes
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.penetrating_passes_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="penetratingPasses.id as penetratingPasses in (penetratingPassesList | filter: $select.search) track by penetratingPasses.id">
+                            <span ng-bind="penetratingPasses.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(progressionTypeList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Tipo de Progresión
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.progression_type_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="progressionType.id as progressionType in (progressionTypeList | filter: $select.search) track by progressionType.id">
+                            <span ng-bind="progressionType.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">
-                  <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Último Sub-espacio Rival
-                </label>
-                <div class="col-md-3">
-                  <ui-select ng-model="chance.ultimate_fieldZone_id">
-                    <ui-select-match>
-                      <span ng-bind="$select.selected.name"></span>
-                    </ui-select-match>
-                    <ui-select-choices repeat="ultimateFieldZone.id as ultimateFieldZone in (fieldZoneList | filter: $select.search) track by ultimateFieldZone.id">
-                      <span ng-bind="ultimateFieldZone.name"></span>
-                    </ui-select-choices>
-                  </ui-select>
+              <div class="form-group-match">
+                <div class="title-area">
+                  <h4>Final de la Posesión</h4>
+                </div>
+                <div class="content-area">
+                  <div class="row">
+                  <div class="col-md-12">
+                  <div class="col-md-12">
+                     <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(pentagonCompletionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Pentágono de Finalización
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.pentagon_completion_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="pentagonCompletion.id as pentagonCompletion in (pentagonCompletionList | filter: $select.search) track by pentagonCompletion.id">
+                            <span ng-bind="pentagonCompletion.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(previousActionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Acción Previa
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.previous_action_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="previousAction.id as previousAction in (previousActionList | filter: $select.search) track by previousAction.id">
+                            <span ng-bind="previousAction.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(completionActionList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Finalización de la Jugada
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.completion_action_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="completionAction.id as completionAction in (completionActionList | filter: $select.search) track by completionAction.id">
+                            <span ng-bind="completionAction.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Penúltimo Sub-espacio Rival
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.penultimate_field_zone_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="penultimateFieldZone.id as penultimateFieldZone in (fieldZoneList | filter: $select.search) track by penultimateFieldZone.id">
+                            <span ng-bind="penultimateFieldZone.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">
+                        <span ng-click="showInfo(fieldZoneList)"><i class="fa fa-info-circle fa-hp-info"></i></span>Último Sub-espacio Rival
+                      </label>
+                      <div class="col-md-3">
+                        <ui-select ng-model="chance.last_field_zone_id">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="ultimateFieldZone.id as ultimateFieldZone in (fieldZoneList | filter: $select.search) track by ultimateFieldZone.id">
+                            <span ng-bind="ultimateFieldZone.name"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="col-md-12 text-center">
                 <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="chanceFormLoading"></ng-include>
-                <button type="submit" class="btn btn-yellow">Guardar Chance</button>
+                <button type="submit" class="btn btn-yellow">Guardar Ocación de Gol</button>
               </div>
             </div>
           </form>
         </div>
+        <div ng-show="subOption === 4">
+          <div class="crud-header">
+            <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
+            <h3>Detalle de Ocasión de Gol</h3>
+          </div>
+          <div class="chance-detail">
+            <h1 class="text-center" ng-if="chance.is_goal == 1">Gol</h1>
+            <div class="form-group-match">
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="title-area">
+                    <h4>Información General</h4>
+                  </div>
+                  <div class="content-area">
+                    <div class="row">
+                      <p ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player || '--'}}</p>
+                      <p ng-if="chance.is_home == 1"> <strong>Equipo:</strong> Local</p>
+                      <p ng-if="chance.is_home != 1"> <strong>Equipo:</strong> Visitante</p>
+                      <p><strong>Minuto: </strong>{{chance.chance_minute}}'</p>
+                      <p ng-if="chance.chance_type == 1"><strong>Tipo de Ocasión:</strong> Jugada</p>
+                      <p ng-if="chance.chance_type == 2"><strong>Tipo de Ocasión:</strong> Balón Parado - {{chance.stopped_ball.name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="title-area">
+                    <h4>Inicio de la Posesión</h4>
+                  </div>
+                  <div class="content-area">
+                    <div class="row">
+                      <p><strong>Tipo de Inicio:</strong> {{chance.start_type.name || '--'}}</p>
+                      <p><strong>Zona del Campo:</strong> {{chance.field_zone.name || '--'}}</p>
+                      <p><strong>Penetración Inicial:</strong> {{chance.initial_penetration.name || '--'}}</p>
+                      <p><strong>Posición de Jugador:</strong> {{chance.player_position.name || '--'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="title-area">
+                    <h4>Situación Inicial del Rival</h4>
+                  </div>
+                  <div class="content-area">
+                    <div class="row">
+                      <p><strong>Posición de Rival:</strong> {{chance.field_area.name || '--'}}</p>
+                      <p><strong>Nivel de Invasión:</strong> {{chance.invation_level.name || '--'}}</p>
+                      <p><strong>Balance Numérico:</strong> {{chance.numerical_balance.name || '--'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="title-area">
+                    <h4>Desarrollo de la Posesión</h4>
+                  </div>
+                  <div class="content-area">
+                    <div class="row">
+                      <p><strong>Pases por Posesión:</strong> {{chance.possession_pass.name || '--'}}</p>
+                      <p><strong>Pases Penetrantes:</strong> {{chance.penetrating_pass.name || '--'}}</p>
+                      <p><strong>Tipo de Progresión:</strong> {{chance.progression_type.name || '--'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="title-area">
+                    <h4>Final de la Posesión</h4>
+                  </div>
+                  <div class="content-area">
+                    <div class="row">
+                      <p><strong>Pentágono de Finalización:</strong> {{chance.pentagon_completion.name || '--'}}</p>
+                      <p><strong>Acción Previa:</strong> {{chance.previous_action.name || '--'}}</p>
+                      <p><strong>Finalización de la Jugada:</strong> {{chance.completion_action.name || '--'}}</p>
+                      <p><strong>Penúltimo Sub-espacio Rival:</strong> {{chance.penultimate_field_zone.name || '--'}}</p>
+                      <p><strong>Último Sub-espacio Rival:</strong> {{chance.last_field_zone.name || '--'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

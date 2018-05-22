@@ -6,10 +6,16 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
     function ($scope,$filter,$location,$auth,authFactory,modalFactory,errorFactory,imageFactory,FileUploader) {
 
       $scope.match = {};
+
       if(sessionStorage.getItem('match')) {
         $scope.match = JSON.parse(sessionStorage.getItem('match'));
         getChanceList();
       }
+
+      $scope.goEditMatch = function() {
+        sessionStorage.setItem('match',JSON.stringify($scope.match));
+        $location.path('/club/match-add-edit');
+      };
 
       function getChanceList() {
         $scope.chanceListLoading = true;

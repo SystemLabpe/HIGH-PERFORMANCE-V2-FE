@@ -1,11 +1,14 @@
 <section id="club-match-detail">
   <div class="match-today-section world-cup-match">
+    <button class="btn-match-edit" ng-click="goEditMatch()">
+      <i class="fa fa-pencil"></i>
+    </button>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="world-cup-match-title gallery">
             <h1>{{match.tournament.name}}
-              <!-- <a href="http://www.youtube.com/watch?v=qqXi8WmQ_WM" data-gal="prettyPhoto[gallery2]"><span><i class="fa fa-video-camera" aria-hidden="true"></i></span></a> -->
+              <a ng-href="{{match.url_detail}}" data-gal="prettyPhoto[gallery2]" ng-if="match.url_detail" target="_blank"><span><i class="fa fa-video-camera" aria-hidden="true"></i></span></a>
             </h1>
             <p><a href="#">{{match.match_date | date:'dd-MM-yyyy'}}</a></p>
           </div>

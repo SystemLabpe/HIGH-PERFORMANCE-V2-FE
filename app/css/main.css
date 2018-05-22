@@ -110,6 +110,49 @@ button.btn-search {
   padding: 10px 14px;
 }
 
+.btn-match-edit {
+  background-color: #ffffff;
+  border: 1px solid #f5f5f5;
+  /*background: #fec722 none repeat scroll 0 0;*/
+  border-radius: 5px;
+  display: block;
+  padding: 12px 16px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  color: #24252f;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.btn-match-edit:hover {
+  background-color: #fec722;
+  border: 1px solid #fec722;
+}
+
+.btn-chance-edit {
+  background-color: #fec722;
+  border: 1px solid #fec722;
+  border-radius: 5px;
+  padding: 4px 6px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  color: #24252f;
+}
+
+.btn-chance-edit:hover {
+  background-color: #fec722;
+  border: 1px solid #fec722;
+}
+
+.row.row-chance-edit {
+  margin-top: -30px;
+}
+
 .ui-select-toggle {
   background-color: #ffffff;
 }
@@ -994,7 +1037,7 @@ form button.btn-yellow {
   font-weight: 400;
   margin: 20px 0 0;
   padding: 0 0 15px 0;
-  border-bottom: 1px solid #f2f2f3;
+  border-bottom: 1px solid #24252f;
   text-align: center;
   position: initial !important;
 }
@@ -1029,6 +1072,25 @@ form button.btn-yellow {
   margin-right: 6px;
 }
 
+#club-match-form .form-chance .form-group-match {
+  margin-bottom: 24px;
+}
+
+#club-match-form .form-chance .form-group-match .title-area {
+  background: #24252f;
+}
+
+#club-match-form .form-chance .form-group-match .title-area > h4 {
+  font-size: 15px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#club-match-form .form-chance .form-group-match .content-area {
+  border: 1px solid #24252f;
+  overflow: visible;
+}
+
 #timeline h2 {
   text-align: left;
   margin: -20px -20px 0 -20px !important;
@@ -1036,10 +1098,14 @@ form button.btn-yellow {
 
 #timeline .timeline-item .timeline-content h2 {
   background: #fec722;
+  color: #24252f;
+  border-bottom: 3px solid #24252f;
 }
 
 #timeline .timeline-item .timeline-content.right h2 {
   background: #24252f;
+  color: #ffffff;
+  border-bottom: 3px solid #fec722;
 }
 
 #timeline .timeline-item .timeline-content p {
@@ -1067,14 +1133,43 @@ form button.btn-yellow {
   line-height: 48px;
 }
 
+#timeline .timeline-item .timeline-content.right span {
+  color: #ffffff;
+}
+
 #timeline:before {
   background: #24252f;
 }
 
 #timeline .timeline-item .timeline-content.right:before {
-  border-right: 7px solid #fec722;
+  border-right: 7px solid #24252f;
 }
 
+#club-match-form .chance-detail {
+  padding: 20px 0 ;
+}
+
+#club-match-form .chance-detail .form-group-match .title-area {
+  background: #24252f;
+}
+
+#club-match-form .chance-detail .form-group-match .title-area > h4 {
+  font-size: 15px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#club-match-form .chance-detail .form-group-match .content-area {
+  border: 1px solid #24252f;
+  overflow: visible;
+  padding: 20px;
+}
+
+#club-match-form .chance-detail .form-group-match .content-area p {
+  width: 50%;
+  float: left;
+  display: inline-block;
+}
 
 /* ==================================================
    Club - Match Detail
@@ -1091,4 +1186,12 @@ form button.btn-yellow {
 #club-match-detail h2 {
   border-bottom: 3px solid #fec722;
   margin-bottom: 28px;
+}
+
+.detail-chance {
+  float: right;
+  margin-top: 0 !important;
+  color: #24252f;
+  padding: 4px;
+  cursor: pointer;
 }

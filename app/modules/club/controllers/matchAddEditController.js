@@ -14,6 +14,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       }
 
       function getMatch(match) {
+        $scope.chanceFormLoading = true;
         authFactory.get({entity:'match',id:match.id}).then(function(result) {
           if (result.data.home_score) {
             result.data.home_score = parseInt(result.data.home_score);
@@ -25,9 +26,9 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
             result.data.match_date = moment(result.data.match_date)._d;
           }
           $scope.match = result.data;
+          $scope.chanceFormLoading = false;
         }, function (error) {
-          $scope.tournamentList = [];
-          $scope.tournamentListLoading = false;
+          $scope.chanceFormLoading = false;
         });
       }
 
@@ -102,7 +103,8 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
             away_score: $scope.match.away_score,
             tournament_id: $scope.match.tournament_id,
             home_club_id: $scope.match.home_club_id,
-            away_club_id: $scope.match.away_club_id
+            away_club_id: $scope.match.away_club_id,
+            url_detail: $scope.match.url_detail
           };
           if (!$scope.match.id) {
             addMatch(request);
@@ -142,7 +144,17 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       }
 
       function editMatch(request) {
+        $scope.matchFormLoading = true;
+        authFactory.edit({entity:'match', method:'me', id:$scope.match.id}, request).then(function(result) {
+          $scope.matchFormLoading = false;
+          $scope.tournament = {};
+          $scope.subOption = 1;
+          $scope.matchFormAlert = errorFactory.getCustomAlert('success','Partido editado satisfactoriamente');
+          $scope.rivalAddSelected = {};
+        }, function (error) {
+          $scope.matchFormLoading = false;
 
+        });
       }
 
       function getChanceList() {
@@ -164,6 +176,25 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
         $scope.matchFormAlert = null;
         $scope.chance = {};
         $scope.crudChanceOption = 'Agregar';
+        $scope.matchFormAlert = null;
+        $scope.chanceFormAlert = null;
+      };
+
+      $scope.goEditChance = function(chance) {
+        $scope.subOption = 3;
+        $scope.matchFormAlert = null;
+        $scope.chance = chance;
+        $scope.chance.chance_type = $scope.chance.chance_type.toString();
+        $scope.crudChanceOption = 'Editar';
+        $scope.matchFormAlert = null;
+        $scope.chanceFormAlert = null;
+      };
+
+      $scope.goDetailChance = function(chance) {
+        $scope.subOption = 4;
+        $scope.matchFormAlert = null;
+        $scope.chance = chance;
+        $scope.chance.chance_type = $scope.chance.chance_type.toString();
         $scope.matchFormAlert = null;
         $scope.chanceFormAlert = null;
       };
@@ -214,7 +245,16 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       }
 
       function editChance() {
-
+        $scope.chanceFormLoading = true;
+        authFactory.edit({entity:'chance', method:'me', id:$scope.chance.id}, $scope.chance).then(function(result) {
+          $scope.chanceFormLoading = false;
+          $scope.chance = {};
+          $scope.subOption = 1;
+          $scope.chanceListAlert = errorFactory.getCustomAlert('success','Ocación de Gol editada satisfactoriamente');
+          getChanceList();
+        }, function (error) {
+          $scope.chanceFormLoading = false;
+        });
       }
 
       $scope.goBack = function() {
@@ -225,17 +265,6 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.showInfo = function(info) {
         modalFactory.showInfoListModalFactory(info);
-      };
-
-      // $scope.filterRival = function(rivalSelectedId) {
-      $scope.filterRival = function(a,b,c,d) {
-        console.log('a => ', a);
-        console.log('b => ', b);
-        console.log('c => ', c);
-        console.log('d => ', d);
-        if(b === "" || b === null) return true;
-        // return a == b;
-        return true;
       };
 
       $scope.getStoppedBallList = function() {
@@ -434,10 +463,11 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.getCompletionActionList();
 
-
-
-
-
+      $scope.cleanAlert = function() {
+        $scope.matchFormAlert = null;
+        $scope.chanceListAlert = null;
+        $scope.chanceFormAlert = null;
+      };
   }]);
 
 });
