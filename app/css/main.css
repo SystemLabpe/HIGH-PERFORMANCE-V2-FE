@@ -1195,3 +1195,13 @@ form button.btn-yellow {
   padding: 4px;
   cursor: pointer;
 }
+
+.delete-option {
+  font-size: 12px;
+  font-weight: 400;
+  color: #24252f;
+  text-decoration: underline;
+  padding: 12px;
+  margin-right: 20px;
+  cursor: pointer;
+}

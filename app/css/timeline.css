@@ -1,5 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700";
-/*header:after, #timeline .timeline-item:after, header:before, #timeline .timeline-item:before {
+header:after, #timeline .timeline-item:after, header:before, #timeline .timeline-item:before {
   content: '';
   display: block;
   width: 100%;
@@ -14,7 +14,7 @@
 
 body, html {
   height: 100%;
-}*/
+}
 
 body {
   background: #f9f9f9;

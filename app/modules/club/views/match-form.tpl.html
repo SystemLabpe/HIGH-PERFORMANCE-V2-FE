@@ -75,6 +75,7 @@
           <div class="form-group">
             <div class="col-md-12 text-center">
               <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="matchFormLoading"></ng-include>
+              <span class="delete-option" ng-show="match.id" ng-click="deleteMatch(match)">Eliminar Partido</span>
               <button type="submit" class="btn btn-yellow">Guardar</button>
             </div>
           </div>
@@ -465,6 +466,7 @@
             <div class="form-group">
               <div class="col-md-12 text-center">
                 <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="chanceFormLoading"></ng-include>
+                <span class="delete-option" ng-show="subOption === 3" ng-click="deleteChance(chance)">Eliminar Ocación</span>
                 <button type="submit" class="btn btn-yellow">Guardar Ocación de Gol</button>
               </div>
             </div>

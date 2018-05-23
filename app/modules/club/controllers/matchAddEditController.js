@@ -160,6 +160,24 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
         });
       }
 
+      $scope.deleteMatch = function(){
+        var modalData = {
+          title:'Confirme eliminación',
+          message:'¿Desea eliminar el Partido?'
+        };
+        modalFactory.showModal(modalData)
+        .then(function() {
+          $scope.chanceFormLoading = true;
+          authFactory.delete({entity:'match',method:'me',id:$scope.match.id})
+          .then(function(result) {
+            $location.path('/club/match');
+          }, function (error) {
+            $scope.matchFormAlert = errorFactory.getError(error);
+            $scope.chanceFormLoading = false;
+          });
+        });
+      };
+
       function getChanceList() {
         if ($scope.match.id) {
           $scope.chanceListLoading = true;
@@ -200,6 +218,27 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
         $scope.chance.chance_type = $scope.chance.chance_type.toString();
         $scope.matchFormAlert = null;
         $scope.chanceFormAlert = null;
+      };
+
+      $scope.deleteChance = function(chance) {
+        var modalData = {
+          title:'Confirme eliminación',
+          message:'¿Desea eliminar la Ocación de Gol?'
+        };
+        modalFactory.showModal(modalData)
+        .then(function() {
+          $scope.chanceFormLoading = true;
+          authFactory.delete({entity:'chance',method:'me',id:chance.id})
+          .then(function(result) {
+            $scope.chanceListAlert = errorFactory.getCustomAlert('success','Ocación de Gol eliminada satisfactoriamente');
+            $scope.goBack();
+            $scope.chanceFormLoading = false;
+            getChanceList();
+          }, function (error) {
+            $scope.chanceListAlert = errorFactory.getError(error);
+            $scope.chanceFormLoading = false;
+          });
+        });
       };
 
       $scope.chanceSubmit = function() {
