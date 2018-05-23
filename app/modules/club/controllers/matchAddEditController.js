@@ -16,6 +16,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
       function getMatch(match) {
         $scope.chanceFormLoading = true;
         authFactory.get({entity:'match',id:match.id}).then(function(result) {
+          $scope.selectTournament(match.tournament_id,false);
           if (result.data.home_score) {
             result.data.home_score = parseInt(result.data.home_score);
           }
@@ -82,17 +83,31 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.getTournamentList();
 
-      $scope.getRivalList = function() {
+      // $scope.getRivalList = function() {
+      //   $scope.rivalList = [];
+      //   authFactory.get({entity:'clubs',method:'rivals'}).then(function(result) {
+      //     $scope.rivalList = result.data;
+      //     $scope.rivalList.splice(0, 0, $scope.myClub);
+      //   }, function (error) {
+      //     $scope.rivalList = [];
+      //   });
+      // };
+
+      // $scope.getRivalList();
+
+      $scope.selectTournament = function(tournamentId,cleanClubs) {
+        if (cleanClubs) {
+          $scope.match.home_club_id = null;
+          $scope.match.away_club_id = null;
+        }
         $scope.rivalList = [];
-        authFactory.get({entity:'clubs',method:'rivals'}).then(function(result) {
+        authFactory.get({entity:'clubs',method:'rivals', param1:'tournament', param2:tournamentId}).then(function(result) {
           $scope.rivalList = result.data;
           $scope.rivalList.splice(0, 0, $scope.myClub);
         }, function (error) {
           $scope.rivalList = [];
         });
-      };
-
-      $scope.getRivalList();
+      }
 
       $scope.matchSubmit = function() {
         $scope.matchFormAlert = null;

@@ -10,7 +10,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">Torneo</label>
             <div class="col-md-4">
-              <ui-select ng-model="match.tournament_id" on-select="addRival(tournamentAddSelected.selected)">
+              <ui-select ng-model="match.tournament_id" on-select="selectTournament(match.tournament_id,true)">
                 <ui-select-match>
                   <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
