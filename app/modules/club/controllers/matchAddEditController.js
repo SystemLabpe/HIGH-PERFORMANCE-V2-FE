@@ -154,6 +154,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
           $scope.subOption = 1;
           $scope.matchFormAlert = errorFactory.getCustomAlert('success','Partido editado satisfactoriamente');
           $scope.rivalAddSelected = {};
+          sessionStorage.setItem('match', JSON.stringify(result.data));
         }, function (error) {
           $scope.matchFormLoading = false;
 
