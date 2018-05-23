@@ -3,6 +3,14 @@
     <button class="btn-match-edit" ng-click="goEditMatch()">
       <i class="fa fa-pencil"></i>
     </button>
+    <div class="breadcrump">
+      <div class="pagination-area">
+        <ul>
+          <li><a href="/club/match">Partidos<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+          <li class="active"><a href="">{{match.home_club.full_name}} vs {{match.away_club.full_name}}</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">

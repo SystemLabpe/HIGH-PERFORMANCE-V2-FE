@@ -276,6 +276,12 @@ button.btn-search {
   opacity: 0;
   filter: alpha(opacity=0);
 }
+
+.breadcrump {
+  position: absolute;
+  right: 160px;
+  top: 20px;
+}
 /* ==================================================
    Spinner
 ================================================== */
@@ -1020,7 +1026,20 @@ form button.btn-yellow {
    Club - Form
 ================================================== */
 #club-match-form {
+  position: relative;
+}
 
+#club-match-form .breadcrump {
+  top: -45px;
+  right: 400px;
+}
+
+#club-match-form .breadcrump .pagination-area ul li a {
+  color: #01090c;
+}
+
+#club-match-form .breadcrump .pagination-area ul li.active a {
+  color: #01090c;
 }
 
 #club-match-form .container {
@@ -1203,5 +1222,9 @@ form button.btn-yellow {
   text-decoration: underline;
   padding: 12px;
   margin-right: 20px;
+  cursor: pointer;
+}
+
+.super-cup-league-section .tab-content .white-match {
   cursor: pointer;
 }

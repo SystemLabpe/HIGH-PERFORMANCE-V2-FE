@@ -1,5 +1,15 @@
 <section id="club-match-form">
   <div class="container">
+    <div class="breadcrump">
+      <div class="pagination-area">
+        <ul>
+          <li><a href="/club/match">Partidos<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+          <li class="active" ng-show="!match.id"><a href="">Agregar Partido</a></li>
+          <li ng-show="match.id"><a href="/club/match-detail">{{match.home_club.full_name}} vs {{match.away_club.full_name}}</a></li>
+          <li class="active" ng-show="match.id"><a href="">Editar Partido</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="crud-header">
