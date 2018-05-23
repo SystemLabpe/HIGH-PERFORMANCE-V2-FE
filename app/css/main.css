@@ -1152,8 +1152,12 @@ form button.btn-yellow {
   line-height: 48px;
 }
 
-#timeline .timeline-item .timeline-content.right span {
+#timeline .timeline-item .timeline-content.right span.detail-chance {
   color: #ffffff;
+}
+
+#timeline .timeline-item .timeline-content.right span {
+  color: #24252f;
 }
 
 #timeline:before {
@@ -1227,4 +1231,40 @@ form button.btn-yellow {
 
 .super-cup-league-section .tab-content .white-match {
   cursor: pointer;
+}
+
+#club-match-detail h3 {
+    color: #24252f;
+    font-weight: 400;
+    margin: 20px 0 0;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #24252f;
+    text-align: center;
+    position: initial !important;
+}
+
+#club-match-detail .chance-detail {
+  padding: 20px 0;
+}
+
+#club-match-detail .chance-detail .form-group-match .title-area {
+  background: #24252f;
+}
+
+#club-match-detail .chance-detail .form-group-match .title-area > h4 {
+  font-size: 15px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#club-match-detail .chance-detail .form-group-match .content-area {
+  border: 1px solid #24252f;
+  overflow: visible;
+  padding: 20px;
+}
+
+#club-match-detail .chance-detail .form-group-match .content-area p {
+  width: 50%;
+  float: left;
+  display: inline-block;
 }

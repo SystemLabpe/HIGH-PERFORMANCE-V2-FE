@@ -99,7 +99,7 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
         modalFactory.showModal(modalData)
         .then(function() {
           $scope.tournamentListLoading = true;
-          authFactory.delete({entity:'tournament',id:tournament.id})
+          authFactory.delete({entity:'tournament', method:'me',id:tournament.id})
           .then(function(result) {
             $scope.tournamentListAlert = errorFactory.getCustomAlert('success','Torneo eliminado satisfactoriamente');
             $scope.getTournamentList();

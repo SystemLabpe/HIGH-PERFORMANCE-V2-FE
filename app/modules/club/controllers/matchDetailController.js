@@ -7,6 +7,8 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.match = {};
 
+      $scope.subOption = 3;
+
       if(sessionStorage.getItem('match')) {
         $scope.match = JSON.parse(sessionStorage.getItem('match'));
         getChanceList();
@@ -28,6 +30,21 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
           $scope.chanceListLoading = false;
         });
       }
+
+      $scope.showInfo = function(info) {
+        modalFactory.showInfoListModalFactory(info);
+      };
+
+      $scope.goBack = function() {
+        $scope.subOption = 3;
+        $scope.chance = {};
+      };
+
+      $scope.goDetailChance = function(chance) {
+        $scope.subOption = 4;
+        $scope.chance = chance;
+        $scope.chance.chance_type = $scope.chance.chance_type.toString();
+      };
 
 
   }]);
