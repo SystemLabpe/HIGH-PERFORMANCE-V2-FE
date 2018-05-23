@@ -83,18 +83,6 @@ define(['club/club','moment','../../auth/factories/authFactory','../../shared/fa
 
       $scope.getTournamentList();
 
-      // $scope.getRivalList = function() {
-      //   $scope.rivalList = [];
-      //   authFactory.get({entity:'clubs',method:'rivals'}).then(function(result) {
-      //     $scope.rivalList = result.data;
-      //     $scope.rivalList.splice(0, 0, $scope.myClub);
-      //   }, function (error) {
-      //     $scope.rivalList = [];
-      //   });
-      // };
-
-      // $scope.getRivalList();
-
       $scope.selectTournament = function(tournamentId,cleanClubs) {
         if (cleanClubs) {
           $scope.match.home_club_id = null;
