@@ -114,9 +114,16 @@
                   <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 1">Jugada <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
                   <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 2">Balón parado: {{chance.stopped_ball.name}} <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
                   <p>
-                    <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player || '--'}}</span>
-                    <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player || '--'}}</span>
-                    <span ng-if="chance.chance_type == 1"><strong>Jugada</strong></span>
+                    <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player}}</span>
+                    <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player}}</span>
+                    <div ng-if="chance.chance_type == 1">
+                      <span><strong>Acción previa:</strong> {{chance.previous_action.name}}</span>
+                      <span><strong>Finalización:</strong> {{chance.completion_action.name}}</span>
+                    </div>
+                    <div ng-if="chance.chance_type == 1 && chance.is_goal !== 1">
+                      <span><strong>Tipo de Inicio:</strong> {{chance.start_type.name}}</span>
+                      <span><strong>Zona de Campo:</strong> {{chance.field_zone.name}}</span>
+                    </div>
                     <span ng-if="chance.chance_type == 2"><strong>Balón parado:</strong> {{chance.stopped_ball.name}}</span>
                   </p>
                   <div class="row row-chance-edit">

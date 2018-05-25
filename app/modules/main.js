@@ -9,7 +9,8 @@ require.config({
     jquery          : '../lib/jquery/dist/jquery',
     angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min',
     angularUISelect : '../lib/angular-ui-select/dist/select',
-    moment          : '../lib/moment/moment'
+    moment          : '../lib/moment/moment',
+    chart           : '../lib/Chart.js/dist/Chart'
   },
   shim:  {
     angular: {
