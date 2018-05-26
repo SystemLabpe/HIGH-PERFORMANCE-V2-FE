@@ -10,7 +10,7 @@ require.config({
     angularFileUpload: '../lib/angular-file-upload/dist/angular-file-upload.min',
     angularUISelect : '../lib/angular-ui-select/dist/select',
     moment          : '../lib/moment/moment',
-    chart           : '../lib/Chart.js/dist/Chart'
+    chart           : '../lib/chart.js/dist/Chart'
   },
   shim:  {
     angular: {
