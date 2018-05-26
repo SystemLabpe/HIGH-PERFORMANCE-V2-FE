@@ -6,6 +6,11 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       $scope.tournamentList = [];
       $scope.matchList = [];
+
+      if(sessionStorage.getItem('lastTournament')) {
+        $scope.lastTournament = JSON.parse(sessionStorage.getItem('lastTournament'));
+      }
+
       // todo: replace tournament_id
 
       $scope.matchListLoading = false;
@@ -14,11 +19,18 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
       $scope.clearFilter  = function(){
         $scope.filter = {};
         $scope.filter.tournament_id = 0;
-        $scope.filter.home_club_id = $scope.myClub.id;
-        $scope.filter.away_club_id = 0;
+        $scope.filter.first_club_id = 0;
+        $scope.filter.state_first_club_id = null;
+        $scope.filter.second_club_id = 0;
       };
 
-      $scope.clearFilter();
+      function initFilter() {
+        $scope.clearFilter();
+        $scope.filter.tournament_id = $scope.lastTournament.id;
+        $scope.filter.first_club_id = $scope.myClub.id;
+      }
+
+      initFilter();
 
       $scope.getTournamentList = function() {
         $scope.tournamentListLoading = true;
@@ -37,11 +49,12 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       $scope.selectTournament = function(tournamentId,cleanClubs) {
         if (cleanClubs) {
-          $scope.filter.home_club_id = 0;
-          $scope.filter.away_club_id = 0;
+          $scope.filter.first_club_id = 0;
+          $scope.filter.second_club_id = 0;
         }
-        $scope.filter.home_club_id = $scope.myClub.id;
-        $scope.filter.away_club_id = 0;
+        $scope.filter.first_club_id = $scope.myClub.id;
+        $scope.filter.state_first_club_id = null;
+        $scope.filter.second_club_id = 0;
         $scope.rivalList = [];
 
         var getParameters = {};
@@ -63,36 +76,68 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       $scope.selectTournament(0, false);
 
-      $scope.getMatchList = function() {
-        $scope.matchListLoading = true;
-        $scope.matchList = [];
+      // $scope.getMatchList = function() {
+      //   $scope.matchListLoading = true;
+      //   $scope.matchList = [];
 
-        authFactory.get({entity:'matches',method:'me'}).then(function(result) {
-          $scope.matchList = result.data;
-          $scope.matchListLoading = false;
-        }, function (error) {
-          $scope.matchList = [];
-          $scope.matchListLoading = false;
-        });
-      };
+      //   authFactory.get({entity:'matches',method:'me'}).then(function(result) {
+      //     $scope.matchList = result.data;
+      //     $scope.matchListLoading = false;
+      //   }, function (error) {
+      //     $scope.matchList = [];
+      //     $scope.matchListLoading = false;
+      //   });
+      // };
 
-      $scope.getMatchList();
+      // $scope.getMatchList();
 
       $scope.filterMatch = function() {
         $scope.filterAlert = null;
-        if (validateFilter()) {
-
+        var request = validateFilter();
+        if (request) {
+          $scope.matchList = [];
+          $scope.matchListLoading = true;
+          authFactory.save({entity:'matches',method:'me',param1:'filter'},request).then(function(result) {
+            $scope.matchList = result.data;
+            $scope.matchListLoading = false;
+          }, function (error) {
+            $scope.matchList = [];
+            $scope.matchListLoading = false;
+          });
         }
       };
 
+      $scope.filterMatch();
+
       function validateFilter() {
-        console.log('==> ', $scope.filter);
-        if (($scope.filter.home_club_id !== 0 ||  $scope.filter.away_club_id !== 0) &&
-            $scope.filter.home_club_id === $scope.filter.away_club_id) {
-          $scope.filterAlert = errorFactory.getCustomAlert('danger','Los equipos Local y Visitante deben ser distintos');
-          return false;
+        if (($scope.filter.first_club_id !== 0 ||  $scope.filter.second_club_id !== 0) &&
+            $scope.filter.first_club_id === $scope.filter.second_club_id) {
+          $scope.filterAlert = errorFactory.getCustomAlert('danger','Los equipos deben ser distintos');
+          return null;
         }
-        return true;
+        var filter = {};
+        if ($scope.filter.tournament_id != 0) {
+          filter.tournament_id = $scope.filter.tournament_id;
+        } else {
+          filter.tournament_id = null;
+        }
+        if ($scope.filter.first_club_id != 0) {
+          filter.first_club_id = $scope.filter.first_club_id;
+        } else {
+          filter.first_club_id = null;
+        }
+        if ($scope.filter.second_club_id !== 0) {
+          filter.second_club_id = $scope.filter.second_club_id;
+        } else {
+          filter.second_club_id = null;
+        }
+        if ($scope.filter.state_first_club_id) {
+          filter.state_first_club_id = $scope.filter.state_first_club_id;
+        } else {
+          filter.state_first_club_id = null;
+        }
+
+        return filter;
       }
 
       $scope.goMatchDetail = function(match) {

@@ -5,33 +5,34 @@
         <div class="row report-panel">
           <div class="col-md-12">
             <h1>Último Partido</h1>
+            <!-- <canvas id="test-report"></canvas> -->
             <div class="row">
               <div class="col-md-12 match-container">
                 <div class="white-match">
                   <div class="col-md-5 col-xs-12">
                     <div class="match-left">
                       <div class="fixture-team-img">
-                        <a href="#"><img class="img-responsive" ng-src="http://18.188.252.113/club/bvMufKx8gSjyewmVw63dvv1Ycx3w9ekTyWRq8pIN.png" width="64" height="84" alt=""></a>
+                        <a href="#"><img class="img-responsive" ng-src="{{lastmatch.home_club.picture}}" width="64" height="84" alt=""></a>
                       </div>
                       <div class="fixture-team-name fixture-team-left">
-                        <h2>{{match.home_club.full_name}} Sport Loreto</h2>
+                        <h2>{{lastmatch.home_club.full_name}}</h2>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-2 col-xs-12">
                     <div class="fixture-team-date">
-                      <h2 class="fix-res-sp">{{match.home_score}} 2:1 {{match.away_score}} </h2>
-                      <p>{{match.match_date | date:'dd-MM-yyyy'}}</p>
-                      <a href="" class="show-report-detail">Ver Detalle</a>
+                      <h2 class="fix-res-sp">{{lastmatch.home_score}} : {{lastmatch.away_score}} </h2>
+                      <p>{{lastmatch.match_date | date:'dd-MM-yyyy'}}</p>
+                      <a href="" class="show-report-detail" ng-click="goMatchDetail(lastmatch)">Ver Detalle</a>
                     </div>
                   </div>
                   <div class="col-md-5 col-xs-12">
                     <div class="match-right">
                       <div class="fixture-team-name fixture-team-right text-right">
-                        <h2>{{match.away_club.full_name}} Willy Serrato</h2>
+                        <h2>{{lastmatch.away_club.full_name}}</h2>
                       </div>
                       <div class="fixture-team-img">
-                        <a href="#"><img class="img-responsive" ng-src="http://18.188.252.113/club/bvMufKx8gSjyewmVw63dvv1Ycx3w9ekTyWRq8pIN.png" width="64" height="84" alt=""></a>
+                        <a href="#"><img class="img-responsive" ng-src="{{lastmatch.away_club.picture}}" width="64" height="84" alt=""></a>
                       </div>
                     </div>
                   </div>
@@ -41,13 +42,9 @@
           </div>
 
           <div class="col-md-12">
-            <canvas id="test-report"></canvas>
-          </div>
-
-          <div class="col-md-12">
             <div class="report-panel-container">
               <div class="row">
-                <div class="col-md-6 report-container" ng-repeat="report in lastMatchGeneralReport track by $index">
+                <div class="report-container" ng-class="report.chart.data.labels.length > 3 ? 'col-md-8 col-md-offset-2' : 'col-md-6'" ng-repeat="report in lastMatchGeneralReport track by $index">
                   <h2 class="report-name">{{report.name}}</h2>
                   <canvas ng-attr-id="{{report.id}}"></canvas>
                 </div>
@@ -63,15 +60,27 @@
             <div class="row">
               <div class="col-md-12 match-container">
                 <div class="white-match">
-                  <h2>Apertura</h2>
+                  <h2>{{lastmatch.tournament.name}}</h2>
+                  <div class="col-md-12 text-center">
+                    <a href="/club/report-tournament" class="show-report-detail">Ver Más</a><br><br>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="col-md-12">
+            <div class="report-panel-container">
+              <div class="row">
+                <div class="report-container" ng-class="report.chart.data.labels.length > 3 ? 'col-md-10 col-md-offset-1' : 'col-md-6'" ng-repeat="report in lastTournamentGeneralReport track by $index">
+                  <h2 class="report-name">{{report.name}}</h2>
+                  <canvas ng-attr-id="{{report.id}}"></canvas>
+                </div>
 
+              </div>
+            </div>
           </div>
+
         </div>
 
       </div>
@@ -80,6 +89,9 @@
           <div class="widget">
             <div class="widget-title">
               <h3>Últimos partidos</h3>
+            </div>
+            <div class="see-all">
+              <a href="/club/match">Ver todo</a>
             </div>
             <div class="widget-container">
               <div class="item" ng-repeat="match in lastMatchesList track by $index" ng-click="goMatchDetail(match)">
@@ -102,10 +114,6 @@
                   </a>
                 </div>
               </div>
-
-                <div class="see-all">
-                  <a href="/club/match">Ver todo</a>
-                </div>
             </div>
           </div>
         </div>
@@ -115,18 +123,18 @@
             <div class="widget-title">
               <h3>Equipos Rivales</h3>
             </div>
+            <div class="see-all">
+              <a href="/club/rival-list">Ver todo</a>
+            </div>
             <div class="widget-container">
               <div class="item">
-                <div class="club-items" ng-repeat="rival in rivalList track by rival.id">
+                <div class="club-items" ng-repeat="rival in rivalList track by rival.id" ng-click="goRivalDetail(rival)">
                   <!-- <a href=""> -->
                     <div class="club-logo">
                       <img ng-src="{{rival.picture}}" width="28" height="28" alt="">
                     </div>
                     <p>{{rival.full_name}}</p>
                   <!-- </a> -->
-                </div>
-                <div class="see-all">
-                  <a href="/club/rival-list">Ver todo</a>
                 </div>
               </div>
             </div>

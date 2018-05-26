@@ -15,6 +15,7 @@ define(['bootstrap','bootstrapUI',
   'club/controllers/tournamentController','club/controllers/rivalCrudController',
   'club/controllers/rivalController','club/controllers/matchAddEditController',
   'club/controllers/timelineController','club/controllers/matchDetailController',
+  'club/controllers/clubController','club/controllers/reportTournamentController',
 
   'admin/controllers/roleController',
   'doctor/doctor','doctor/controllers/homeController',
@@ -282,6 +283,24 @@ define(['bootstrap','bootstrapUI',
       .when('/club/match-detail', {
         templateUrl : 'modules/club/views/match-detail.tpl.html',
         controller  : 'club.matchDetailController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/club/report-tournament', {
+        templateUrl : 'modules/club/views/report-tournament.tpl.html',
+        controller  : 'club.reportTournamentController',
+        resolve     : {
+          loginRolRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRolRequired(ROLE.CLUB.ID);
+          }]
+        }
+      })
+      .when('/club/club-detail', {
+        templateUrl : 'modules/club/views/club-detail.tpl.html',
+        controller  : 'club.clubController',
         resolve     : {
           loginRolRequired: ['auth.authFactory',function (authFactory) {
             return authFactory.loginRolRequired(ROLE.CLUB.ID);

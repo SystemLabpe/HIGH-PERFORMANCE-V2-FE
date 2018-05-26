@@ -1,52 +1,6 @@
 <section id="club-match-list" class="super-cup-league-section">
   <div class="container">
     <div class="tab-content">
-      <div class="row filter-row">
-        <div class="col-md-10 col-md-offset-1">
-          <uib-alert type="{{filterAlert.type}}" close="cleanAlert()" ng-show="filterAlert">{{filterAlert.text}}</uib-alert>
-        </div>
-        <form class="form-inline" role="form" ng-submit="filterMatch()">
-          <div class="form-group">
-            <label for="tournament">Torneo</label>
-            <ui-select ng-model="filter.tournament_id" class="form-control form-control-select" on-select="selectTournament(filter.tournament_id,true)">
-              <ui-select-match>
-                <span ng-bind="$select.selected.name"></span>
-              </ui-select-match>
-              <ui-select-choices repeat="tournamentItem.id as tournamentItem in (tournamentList | filter: $select.search) track by tournamentItem.id">
-                  <span ng-bind="tournamentItem.name"></span>
-                </ui-select-choices>
-            </ui-select>
-          </div>
-          <div class="form-group">
-            <label for="local">Local</label>
-            <ui-select ng-model="filter.home_club_id" class="form-control form-control-select">
-              <ui-select-match>
-                <span ng-bind="$select.selected.full_name"></span>
-              </ui-select-match>
-              <ui-select-choices repeat="homeClub.id as homeClub in (rivalList | filter: {id:'!filter.away_club_id'}) track by homeClub.id" >
-                <span ng-bind="homeClub.full_name"></span>
-              </ui-select-choices>
-            </ui-select>
-          </div>
-          <div class="form-group">
-            <label for="local">Visitante</label>
-            <ui-select ng-model="filter.away_club_id" class="form-control form-control-select">
-              <ui-select-match>
-                <span ng-bind="$select.selected.full_name"></span>
-              </ui-select-match>
-              <ui-select-choices repeat="homeClub.id as homeClub in (rivalList | filter: {id:'!filter.away_club_id'}) track by homeClub.id" >
-                <span ng-bind="homeClub.full_name"></span>
-              </ui-select-choices>
-            </ui-select>
-          </div>
-          <button type="submit" class="icon-search">
-            <i class="fa fa-search"></i>
-          </button>
-          <button type="button" class="icon-clear" ng-click="clearFilter()">
-            <i class="fa fa-times"></i>
-          </button>
-        </form>
-      </div>
       <div class="row">
         <div class="col-md-10 col-title">
           <div class="fixture-title">
@@ -58,6 +12,62 @@
         </div>
       </div>
       <div class="tab-pane active">
+        <div class="row filter-row">
+          <div class="col-md-10 col-md-offset-1">
+            <uib-alert type="{{filterAlert.type}}" close="cleanAlert()" ng-show="filterAlert">{{filterAlert.text}}</uib-alert>
+          </div>
+          <form class="form-inline" role="form" ng-submit="filterMatch()">
+            <div class="form-group">
+              <label for="tournament">Torneo</label>
+              <ui-select ng-model="filter.tournament_id" class="form-control form-control-select" on-select="selectTournament(filter.tournament_id,true)">
+                <ui-select-match>
+                  <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="tournamentItem.id as tournamentItem in (tournamentList | filter: $select.search) track by tournamentItem.id">
+                    <span ng-bind="tournamentItem.name"></span>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="filter-row-2">
+              <div class="form-group">
+                <label for="local">Equipo</label>
+                <ui-select ng-model="filter.first_club_id" class="form-control form-control-select">
+                  <ui-select-match>
+                    <span ng-bind="$select.selected.full_name"></span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="homeClub.id as homeClub in (rivalList | filter: $select.search) track by homeClub.id" >
+                    <span ng-bind="homeClub.full_name"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <label>Estado de Equipo</label>
+                <select class="form-control" ng-model="filter.state_first_club_id">
+                  <option value="">Ambas</option>
+                  <option value="1">Local</option>
+                  <option value="2">Visitante</option>
+                </select>
+              </div>
+              <div class="form-group" ng-show="filter.first_club_id && filter.first_club_id != 0">
+                <label for="local">Rival</label>
+                <ui-select ng-model="filter.second_club_id" class="form-control form-control-select">
+                  <ui-select-match>
+                    <span ng-bind="$select.selected.full_name"></span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="homeClub.id as homeClub in (rivalList | filter: $select.search) track by homeClub.id" >
+                    <span ng-bind="homeClub.full_name"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <button type="submit" class="icon-search">
+                <i class="fa fa-search"></i>
+              </button>
+              <button type="button" class="icon-clear" ng-click="clearFilter()">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </form>
+        </div>
         <div class="row" ng-repeat="match in matchList track by $index" ng-click="goMatchDetail(match)">
           <div class="white-match">
             <div class="col-md-4 col-xs-12">

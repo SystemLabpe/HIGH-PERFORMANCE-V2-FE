@@ -22,5 +22,10 @@ define(['club/club','../../auth/factories/authFactory','../../shared/factories/m
 
       $scope.getRivalList();
 
+      $scope.goRivalDetail = function(club) {
+        sessionStorage.setItem('club',JSON.stringify(club));
+        $location.path('/club/club-detail');
+      };
+
     }]);
 });
