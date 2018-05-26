@@ -9,10 +9,8 @@ define(['auth/auth'], function(auth){
       }
 
       function cleanStorage() {
-        localStorage.removeItem('roleList');
-        localStorage.removeItem('currentRole');
-        localStorage.removeItem('userRoleId');
-        localStorage.removeItem('username');
+        localStorage.clear();
+        sessionStorage.clear();
       }
 
       cleanStorage();

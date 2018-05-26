@@ -61,12 +61,148 @@
         <div class="col-md-12">
           <div class="tab-area">
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#report-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">Reporte</a></li>
+              <li role="presentation" class="active"><a href="#timeline-tab" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">Timeline</a></li>
+              <li role="presentation" class=""><a href="#report-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">Reporte</a></li>
               <!-- <li role="presentation" class=""><a href="#data-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">Datos</a></li> -->
-              <li role="presentation" class=""><a href="#timeline-tab" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">Timeline</a></li>
+
             </ul>
             <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="report-tab">
+              <div role="tabpanel" class="tab-pane active" id="timeline-tab">
+                <div class="fixture-title">
+                  <h1>Timeline</h1>
+                </div>
+                <div class="col-md-12">
+                  <div id=timeline class="chance-timeline" ng-show="subOption == 3">
+                    <div class="demo-card-wrapper">
+
+                      <div class="timeline-item" ng-repeat="chance in chanceList track by $index" >
+                        <div class="timeline-icon">
+                          <span>{{chance.chance_minute}}'</span>
+                        </div>
+                        <div class="timeline-content" ng-class="{'right':chance.is_home == 0}">
+                          <h2 ng-if="chance.is_goal === 1">Gol <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
+                          <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 1">Jugada <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
+                          <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 2">Balón parado: {{chance.stopped_ball.name}} <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
+                          <p>
+                            <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player}}</span>
+                            <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player}}</span>
+                            <div ng-if="chance.chance_type == 1 && chance.is_goal !== 1">
+                              <span><strong>Tipo de Inicio:</strong> {{chance.start_type.name}}</span>
+                              <span><strong>Zona de Campo:</strong> {{chance.field_zone.name}}</span>
+                            </div>
+                            <div ng-if="chance.chance_type == 1">
+                              <span><strong>Acción previa:</strong> {{chance.previous_action.name}}</span>
+                              <span><strong>Finalización:</strong> {{chance.completion_action.name}}</span>
+                            </div>
+                            <span ng-if="chance.chance_type == 2"><strong>Balón parado:</strong> {{chance.stopped_ball.name}}</span>
+                          </p>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div ng-show="subOption === 4">
+                    <div class="crud-header">
+                      <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
+                      <h3>Detalle de Ocasión de Gol</h3>
+                    </div>
+                    <div class="chance-detail">
+                      <h1 class="text-center" ng-if="chance.is_goal == 1">Gol</h1>
+                      <div class="form-group-match">
+                        <div class="row">
+                          <div class="col-md-8 col-md-offset-2">
+                            <div class="title-area">
+                              <h4>Información General</h4>
+                            </div>
+                            <div class="content-area">
+                              <div class="row">
+                                <p ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player || '--'}}</p>
+                                <p ng-if="chance.is_home == 1"> <strong>Equipo:</strong> Local</p>
+                                <p ng-if="chance.is_home != 1"> <strong>Equipo:</strong> Visitante</p>
+                                <p><strong>Minuto: </strong>{{chance.chance_minute}}'</p>
+                                <p ng-if="chance.chance_type == 1"><strong>Tipo de Ocasión:</strong> Jugada</p>
+                                <p ng-if="chance.chance_type == 2"><strong>Tipo de Ocasión:</strong> Balón Parado - {{chance.stopped_ball.name}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div ng-show="chance.chance_type == 1">
+
+                          <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                              <div class="title-area">
+                                <h4>Inicio de la Posesión</h4>
+                              </div>
+                              <div class="content-area">
+                                <div class="row">
+                                  <p><span ng-click="showInfo(chance.start_type)" ng-show="chance.start_type"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Tipo de Inicio:</strong> {{chance.start_type.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.field_zone)" ng-show="chance.field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Zona del Campo:</strong> {{chance.field_zone.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.initial_penetration)" ng-show="chance.initial_penetration"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Penetración Inicial:</strong> {{chance.initial_penetration.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.player_position)" ng-show="chance.player_position"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Posición de Jugador:</strong> {{chance.player_position.name || '--'}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                              <div class="title-area">
+                                <h4>Situación Inicial del Rival</h4>
+                              </div>
+                              <div class="content-area">
+                                <div class="row">
+                                  <p><span ng-click="showInfo(chance.field_area)" ng-show="chance.field_area"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Posición de Rival:</strong> {{chance.field_area.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.invation_level)" ng-show="chance.invation_level"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Nivel de Invasión:</strong> {{chance.invation_level.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.numerical_balance)" ng-show="chance.numerical_balance"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Balance Numérico:</strong> {{chance.numerical_balance.name || '--'}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                              <div class="title-area">
+                                <h4>Desarrollo de la Posesión</h4>
+                              </div>
+                              <div class="content-area">
+                                <div class="row">
+                                  <p><span ng-click="showInfo(chance.possession_pass)" ng-show="chance.possession_pass"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pases por Posesión:</strong> {{chance.possession_pass.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.penetrating_pass)" ng-show="chance.penetrating_pass"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pases Penetrantes:</strong> {{chance.penetrating_pass.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.progression_type)" ng-show="chance.progression_type"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Tipo de Progresión:</strong> {{chance.progression_type.name || '--'}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                              <div class="title-area">
+                                <h4>Final de la Posesión</h4>
+                              </div>
+                              <div class="content-area">
+                                <div class="row">
+                                  <p><span ng-click="showInfo(chance.pentagon_completion)" ng-show="chance.pentagon_completion"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pentágono de Finalización:</strong> {{chance.pentagon_completion.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.previous_action)" ng-show="chance.previous_action"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Acción Previa:</strong> {{chance.previous_action.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.completion_action)" ng-show="chance.completion_action"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Finalización de la Jugada:</strong> {{chance.completion_action.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.penultimate_field_zone)" ng-show="chance.penultimate_field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Penúltimo Sub-espacio Rival:</strong> {{chance.penultimate_field_zone.name || '--'}}</p>
+                                  <p><span ng-click="showInfo(chance.last_field_zone)" ng-show="chance.last_field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Último Sub-espacio Rival:</strong> {{chance.last_field_zone.name || '--'}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div role="tabpanel" class="tab-pane" id="report-tab">
                 <div class="fixture-title">
                   <h1>Reporte</h1>
                 </div>
@@ -254,140 +390,7 @@
                   <h1>Datos</h1>
                 </div>
               </div> -->
-              <div role="tabpanel" class="tab-pane" id="timeline-tab">
-                <div class="fixture-title">
-                  <h1>Timeline</h1>
-                </div>
-                <div class="col-md-12">
-                  <div id=timeline class="chance-timeline" ng-show="subOption == 3">
-                    <div class="demo-card-wrapper">
 
-                      <div class="timeline-item" ng-repeat="chance in chanceList track by $index" >
-                        <div class="timeline-icon">
-                          <span>{{chance.chance_minute}}'</span>
-                        </div>
-                        <div class="timeline-content" ng-class="{'right':chance.is_home == 0}">
-                          <h2 ng-if="chance.is_goal === 1">Gol <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
-                          <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 1">Jugada <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
-                          <h2 ng-if="chance.is_goal !== 1 && chance.chance_type == 2">Balón parado: {{chance.stopped_ball.name}} <span class="detail-chance" ng-click="goDetailChance(chance)"><i class="fa fa-eye"></i></span></h2>
-                          <p>
-                            <span ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player}}</span>
-                            <span ng-if="chance.is_goal === 1"><strong>Asistió:</strong> {{chance.assisted_player}}</span>
-                            <div ng-if="chance.chance_type == 1">
-                              <span><strong>Acción previa:</strong> {{chance.previous_action.name}}</span>
-                              <span><strong>Finalización:</strong> {{chance.completion_action.name}}</span>
-                            </div>
-                            <div ng-if="chance.chance_type == 1 && chance.is_goal !== 1">
-                              <span><strong>Tipo de Inicio:</strong> {{chance.start_type.name}}</span>
-                              <span><strong>Zona de Campo:</strong> {{chance.field_zone.name}}</span>
-                            </div>
-                            <span ng-if="chance.chance_type == 2"><strong>Balón parado:</strong> {{chance.stopped_ball.name}}</span>
-                          </p>
-                        </div>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div ng-show="subOption === 4">
-                    <div class="crud-header">
-                      <button type="button" class="btn btn-default btn-sm btn-back" ng-click="goBack()">← Atrás</button>
-                      <h3>Detalle de Ocasión de Gol</h3>
-                    </div>
-                    <div class="chance-detail">
-                      <h1 class="text-center" ng-if="chance.is_goal == 1">Gol</h1>
-                      <div class="form-group-match">
-                        <div class="row">
-                          <div class="col-md-8 col-md-offset-2">
-                            <div class="title-area">
-                              <h4>Información General</h4>
-                            </div>
-                            <div class="content-area">
-                              <div class="row">
-                                <p ng-if="chance.is_goal === 1"><strong>Anotó:</strong> {{chance.scored_player || '--'}}</p>
-                                <p ng-if="chance.is_home == 1"> <strong>Equipo:</strong> Local</p>
-                                <p ng-if="chance.is_home != 1"> <strong>Equipo:</strong> Visitante</p>
-                                <p><strong>Minuto: </strong>{{chance.chance_minute}}'</p>
-                                <p ng-if="chance.chance_type == 1"><strong>Tipo de Ocasión:</strong> Jugada</p>
-                                <p ng-if="chance.chance_type == 2"><strong>Tipo de Ocasión:</strong> Balón Parado - {{chance.stopped_ball.name}}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div ng-show="chance.chance_type == 1">
-
-                          <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                              <div class="title-area">
-                                <h4>Inicio de la Posesión</h4>
-                              </div>
-                              <div class="content-area">
-                                <div class="row">
-                                  <p><span ng-click="showInfo(chance.start_type)" ng-show="chance.start_type"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Tipo de Inicio:</strong> {{chance.start_type.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.field_zone)" ng-show="chance.field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Zona del Campo:</strong> {{chance.field_zone.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.initial_penetration)" ng-show="chance.initial_penetration"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Penetración Inicial:</strong> {{chance.initial_penetration.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.player_position)" ng-show="chance.player_position"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Posición de Jugador:</strong> {{chance.player_position.name || '--'}}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                              <div class="title-area">
-                                <h4>Situación Inicial del Rival</h4>
-                              </div>
-                              <div class="content-area">
-                                <div class="row">
-                                  <p><span ng-click="showInfo(chance.field_area)" ng-show="chance.field_area"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Posición de Rival:</strong> {{chance.field_area.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.invation_level)" ng-show="chance.invation_level"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Nivel de Invasión:</strong> {{chance.invation_level.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.numerical_balance)" ng-show="chance.numerical_balance"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Balance Numérico:</strong> {{chance.numerical_balance.name || '--'}}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                              <div class="title-area">
-                                <h4>Desarrollo de la Posesión</h4>
-                              </div>
-                              <div class="content-area">
-                                <div class="row">
-                                  <p><span ng-click="showInfo(chance.possession_pass)" ng-show="chance.possession_pass"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pases por Posesión:</strong> {{chance.possession_pass.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.penetrating_pass)" ng-show="chance.penetrating_pass"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pases Penetrantes:</strong> {{chance.penetrating_pass.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.progression_type)" ng-show="chance.progression_type"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Tipo de Progresión:</strong> {{chance.progression_type.name || '--'}}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                              <div class="title-area">
-                                <h4>Final de la Posesión</h4>
-                              </div>
-                              <div class="content-area">
-                                <div class="row">
-                                  <p><span ng-click="showInfo(chance.pentagon_completion)" ng-show="chance.pentagon_completion"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Pentágono de Finalización:</strong> {{chance.pentagon_completion.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.previous_action)" ng-show="chance.previous_action"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Acción Previa:</strong> {{chance.previous_action.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.completion_action)" ng-show="chance.completion_action"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Finalización de la Jugada:</strong> {{chance.completion_action.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.penultimate_field_zone)" ng-show="chance.penultimate_field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Penúltimo Sub-espacio Rival:</strong> {{chance.penultimate_field_zone.name || '--'}}</p>
-                                  <p><span ng-click="showInfo(chance.last_field_zone)" ng-show="chance.last_field_zone"><i class="fa fa-info-circle fa-hp-info"></i></span><strong>Último Sub-espacio Rival:</strong> {{chance.last_field_zone.name || '--'}}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
             </div>
           </div>

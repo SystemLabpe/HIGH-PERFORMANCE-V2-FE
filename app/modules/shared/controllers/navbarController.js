@@ -16,6 +16,7 @@ define(['shared/shared','jquery'], function(shared,$){
           $scope.isAuthenticated = true;
         } else {
           $scope.isAuthenticated = false;
+          $scope.myClub = null;
         }
       }
 

@@ -72,7 +72,7 @@
           <div class="col-md-12">
             <div class="report-panel-container">
               <div class="row">
-                <div class="report-container" ng-class="report.chart.data.labels.length > 3 ? 'col-md-10 col-md-offset-1' : 'col-md-6'" ng-repeat="report in lastTournamentGeneralReport track by $index">
+                <div class="report-container" ng-class="report.chart.data.labels.length > 3 ? 'col-md-8 col-md-offset-2' : 'col-md-6'" ng-repeat="report in lastTournamentGeneralReport track by $index">
                   <h2 class="report-name">{{report.name}}</h2>
                   <canvas ng-attr-id="{{report.id}}"></canvas>
                 </div>

@@ -80,14 +80,14 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
         $scope.cleanAlertPossessionPassesList();
         var modalData = {
           title:'Confirme eliminación',
-          message:'¿Desea eliminar el Pase por poseción ' + possessionPasses.name +' ?'
+          message:'¿Desea eliminar el Pase por posesión ' + possessionPasses.name +' ?'
         };
         modalFactory.showModal(modalData)
         .then(function() {
           $scope.possessionPassesListLoading = true;
           authFactory.delete({entity:'possessionPass',id:possessionPasses.id})
           .then(function(result) {
-            $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesción eliminado satisfactoriamente');
+            $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesión eliminado satisfactoriamente');
             $scope.getPossessionPassesList();
           }, function (error) {
             $scope.possessionPassesListAlert = errorFactory.getError(error);
@@ -131,7 +131,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
           $scope.possessionPassesCrudLoading = false;
           $scope.possessionPasses = {};
           $scope.subOption = 1;
-          $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesción agregado satisfactoriamente');
+          $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesión agregado satisfactoriamente');
           $scope.getPossessionPassesList();
           uploader.queue = [];
         }, function (error) {
@@ -145,7 +145,7 @@ define(['admin/admin','../../auth/factories/authFactory','../../shared/factories
           $scope.possessionPassesCrudLoading = false;
           $scope.possessionPasses = {};
           $scope.subOption = 1;
-          $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesción editado satisfactoriamente');
+          $scope.possessionPassesListAlert = errorFactory.getCustomAlert('success','Pase por posesión editado satisfactoriamente');
           $scope.getPossessionPassesList();
           uploader.queue = [];
         }, function (error) {
