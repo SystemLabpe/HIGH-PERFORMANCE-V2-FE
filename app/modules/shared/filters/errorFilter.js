@@ -7,7 +7,8 @@ define(['shared/shared'], function(shared) {
         console.log ('ERROR INPUT => ', input);
         var errorFilter = {
           401: 'Credenciales inválidas',
-          101: 'Email ya existe'
+          101: 'Email ya existe',
+          102: 'Contraseña actual no es correcta'
         };
         return {
           TYPE: 'danger',

@@ -1,0 +1,48 @@
+<section id="profile">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <form class="form-horizontal form-profile" ng-submit="profileSubmit()">
+          <uib-alert type="{{profileAlert.TYPE}}" close="cleanAlertProfile()" ng-show="profileAlert">{{profileAlert.TEXT}}</uib-alert>
+          <div class="form-group">
+            <label for="user-name" class="col-md-2 control-label">Nombre</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="user-name" placeholder="Nombre" ng-model="user.name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="user-email" class="col-md-2 control-label">Usuario</label>
+            <div class="col-md-8">
+              <input type="email" class="form-control" id="user-email" placeholder="Usuario" ng-model="user.email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="user-old-password" class="col-md-2 control-label">Contraseña Actual</label>
+            <div class="col-md-8">
+              <input type="password" class="form-control" id="user-old-password" placeholder="Contraseña Antigua" ng-model="user.old_password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="user-password" class="col-md-2 control-label">Contraseña Nueva</label>
+            <div class="col-md-8">
+              <input type="password" class="form-control" id="user-password" placeholder="Contraseña Nueva" ng-model="user.password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="user-confirm-password" class="col-md-2 control-label">Repetir Contraseña Nueva</label>
+            <div class="col-md-8">
+              <input type="password" class="form-control" id="user-confirm-password" placeholder="Confirme Nueva Contraseña" ng-model="user.confirm_password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 text-center">
+              <ng-include src="'modules/shared/views/spinner.tpl.html'" ng-show="profileLoading"></ng-include>
+              <button type="submit" class="btn btn-yellow">Guardar</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>

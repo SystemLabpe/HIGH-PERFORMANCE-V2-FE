@@ -30,13 +30,16 @@
 
       <!-- Start Atribute Navigation -->
       <div class="attr-nav shoping-cart-box">
-      <a href="/logout" class="dropdown-toggle" ng-click="collapse()">
-        <i class="fa fa-sign-out"></i>
-      </a>
-      <div class="shop-cart">
-        <span class="cart-price">{{navRole}}</span>
-        <p ng-if="!myClub">{{navUsername}}</p> <p ng-if="myClub">{{myClub.full_name}}</p>
-      </div>
+        <a href="/logout" class="dropdown-toggle" ng-click="collapse()">
+          <i class="fa fa-sign-out"></i>
+        </a>
+        <a href="/profile" class="dropdown-toggle" ng-if="myClub">
+          <i class="fa fa-user"></i>
+        </a>
+        <div class="shop-cart">
+          <span class="cart-price">{{navRole}}</span>
+          <p ng-if="!myClub">{{navUsername}}</p> <p ng-if="myClub">{{myClub.full_name}}</p>
+        </div>
       </div>
     <!-- End Atribute Navigation -->
 

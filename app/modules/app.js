@@ -1,5 +1,6 @@
 define(['bootstrap','bootstrapUI',
-  'shared/shared','shared/directives/navbar','shared/directives/ngthumb','shared/controllers/userSettingsController',
+  'shared/shared','shared/directives/navbar','shared/directives/ngthumb',
+  'shared/controllers/userSettingsController','shared/controllers/profileController',
   'auth/auth','auth/factories/authFactory','auth/controllers/roleController',
   'auth/controllers/loginController','auth/controllers/logoutController',
   'admin/admin','admin/controllers/homeController', 'admin/controllers/clubController',
@@ -65,14 +66,6 @@ define(['bootstrap','bootstrapUI',
       //     }]
       //   }
       // })
-      // .when('/perfil', {
-      //   templateUrl : 'modules/shared/views/profile.tpl.html',
-      //   resolve     : {
-      //     loginRequired: ['auth.authFactory',function (authFactory) {
-      //       return authFactory.loginRequired();
-      //     }]
-      //   }
-      // })
       // .when('/roles', {
       //   templateUrl : 'modules/auth/views/roles.tpl.html',
       //   controller  : 'auth.roleController',
@@ -82,6 +75,15 @@ define(['bootstrap','bootstrapUI',
       //     }]
       //   }
       // })
+      .when('/profile', {
+        templateUrl : 'modules/shared/views/profile.tpl.html',
+        controller  : 'shared.profileController',
+        resolve     : {
+          loginRequired: ['auth.authFactory',function (authFactory) {
+            return authFactory.loginRequired();
+          }]
+        }
+      })
       .when('/admin', {
         templateUrl : 'modules/admin/views/home.tpl.html',
         controller  : 'admin.homeController',
